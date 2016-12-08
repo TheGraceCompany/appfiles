@@ -1,8 +1,6 @@
 <?php
 
-/*
- * @author Phillip Madsen
- */
+
 
 namespace App\Http\Requests\API;
 

@@ -1,8 +1,6 @@
 <?php
 
-/*
- * @author Phillip Madsen
- */
+
 
 Breadcrumbs::register('home', function ($breadcrumbs) {
     $breadcrumbs->push('Home', route('dashboard'));

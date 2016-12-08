@@ -1,8 +1,6 @@
 <?php
 
-/*
- * @author Phillip Madsen
- */
+
 
 Route::get('dealers', 'DealerAPIController@index');
 Route::post('dealers', 'DealerAPIController@store');

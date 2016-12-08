@@ -1,8 +1,6 @@
 <?php
 
-/*
- * @author Phillip Madsen
- */
+
 
 App::bind('Ecommerce\Billing\BillingInterface', 'Ecommerce\Billing\StripeBilling');
 

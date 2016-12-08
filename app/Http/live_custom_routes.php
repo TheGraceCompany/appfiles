@@ -1,8 +1,6 @@
 <?php
 
-/*
- * @author Phillip Madsen
- */
+
 
 // $router->model('products', 'App\Models\Product');
 // $router->model('sections', 'App\Models\Section');

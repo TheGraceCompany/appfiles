@@ -4,6 +4,7 @@ risky: false
 
 enabled:
   - long_array_syntax
+  - strict
   - unalign_double_arrow
   - binary_operator_spaces
   - blank_line_after_namespace
@@ -30,12 +31,6 @@ enabled:
   - method_separation
   - method_visibility_required
   - native_function_casing
-  - no_alias_functions
-  - no_blank_lines_after_class_opening
-  - no_blank_lines_after_phpdoc
-  - no_blank_lines_after_throw
-  - no_blank_lines_between_imports
-  - no_blank_lines_between_traits
   - no_closing_tag
   - no_empty_phpdoc
   - no_empty_statement
@@ -98,10 +93,3 @@ enabled:
   - unary_operator_spaces
   - unix_line_endings
   - whitespace_after_comma_in_array
-
-disabled:
-
-
-finder:
-  exclude:
-    - "tests"
