@@ -1,7 +1,6 @@
 <?php
 namespace App\Composers;
 
-
 use Ecommerce\helperFunctions;
 
 /**
@@ -9,7 +8,6 @@ use Ecommerce\helperFunctions;
  */
 class MenuCartComposer
 {
-
     /**
      * @param $view
      */
