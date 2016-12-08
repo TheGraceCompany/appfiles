@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;

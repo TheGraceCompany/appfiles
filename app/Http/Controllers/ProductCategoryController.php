@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace app\Http\Controllers;
 
 use App\Category;

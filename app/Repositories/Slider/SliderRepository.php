@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\Slider;
 
 use App\Models\Slider;

@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Services\Cache;
 
 use Config;

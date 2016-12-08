@@ -1,7 +1,6 @@
 <?php
 
 
-
 // $router->model('products', 'App\Models\Product');
 // $router->model('sections', 'App\Models\Section');
 // $router->model('tags', 'App\Models\Tag');

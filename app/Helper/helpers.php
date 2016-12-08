@@ -1,7 +1,6 @@
 <?php
 
 
-
 if (!function_exists('gratavarUrl')) {
     /**
      * Gravatar URL from Email address.

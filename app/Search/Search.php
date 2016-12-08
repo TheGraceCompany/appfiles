@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Search;
 
 use App\Models\Article;

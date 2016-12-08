@@ -1,7 +1,6 @@
 <?php
 
 
-
 App::bind('Ecommerce\Billing\BillingInterface', 'Ecommerce\Billing\StripeBilling');
 
 Route::model('cart', 'App\Models\Cart');

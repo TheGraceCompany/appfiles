@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\Cart;
 
 use App\Models\Cart;

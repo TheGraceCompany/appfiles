@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\Article;
 
 use App\Exceptions\Validation\ValidationException;

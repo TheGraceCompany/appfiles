@@ -1,7 +1,6 @@
 <?php
 
 
-
 Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => ['localization', 'before']], function () {
     Route::group(['middleware' => 'SentinelUser'], function () {
 

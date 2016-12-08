@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories;
 
 use Validator as V;

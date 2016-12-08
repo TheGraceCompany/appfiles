@@ -1,7 +1,6 @@
 <?php
 
 
-
 // if(Config::get('app.debug'))
 // {
 //     array_push($middleware, ['middleware' => 'clearcache']);

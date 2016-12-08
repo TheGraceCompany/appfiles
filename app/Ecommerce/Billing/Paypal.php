@@ -1,7 +1,6 @@
 <?php
 
 
-
 return [
     // set your paypal credential
     'client_id' => 'ATswVJCtvlkuEUhfdpXIfFcBTn2_shQyJS9jADqK6Hjf2ZN75UXDaWbeKnsvQNtckUxREj-2c0etq-NZ',
