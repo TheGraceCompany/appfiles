@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Video;
 
-use Config;
+use App\Exceptions\Validation\ValidationException;
 use App\Models\Video;
-use VideoApi;
 use App\Repositories\CrudableInterface;
 use App\Repositories\RepositoryAbstract;
-use App\Exceptions\Validation\ValidationException;
+use Config;
+use VideoApi;
 
 /**
  * Class VideoRepository.
@@ -32,9 +32,9 @@ class VideoRepository extends RepositoryAbstract implements VideoInterface, Crud
      * @var array
      */
     protected static $rules = [
-        'title' => 'required',
+        'title'    => 'required',
         'video_id' => 'required',
-        'type' => 'required',
+        'type'     => 'required',
     ];
 
     /**
@@ -84,7 +84,7 @@ class VideoRepository extends RepositoryAbstract implements VideoInterface, Crud
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->video->orderBy('created_at', 'DESC')->where('lang', $this->getLang());
 
@@ -122,9 +122,9 @@ class VideoRepository extends RepositoryAbstract implements VideoInterface, Crud
     /**
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function create($attributes)
     {
@@ -143,9 +143,9 @@ class VideoRepository extends RepositoryAbstract implements VideoInterface, Crud
      * @param $id
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function update($id, $attributes)
     {

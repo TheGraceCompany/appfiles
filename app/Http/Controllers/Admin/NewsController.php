@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use View;
-use Input;
-use Flash;
-use Response;
-use App\Services\Pagination;
+use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Repositories\News\NewsInterface;
 use App\Repositories\News\NewsRepository as News;
-use App\Exceptions\Validation\ValidationException;
+use App\Services\Pagination;
+use Flash;
+use Input;
+use Response;
+use View;
 
 /**
  * Class NewsController.

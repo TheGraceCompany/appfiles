@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateShippingmethodAPIRequest;
 use App\Http\Requests\API\UpdateShippingmethodAPIRequest;
 use App\Models\Shippingmethod;
 use App\Repositories\ShippingmethodRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class ShippingmethodController
- * @package App\Http\Controllers\API
+ * Class ShippingmethodController.
  */
-
 class ShippingmethodAPIController extends AppBaseController
 {
-    /** @var  ShippingmethodRepository */
+    /** @var ShippingmethodRepository */
     private $shippingmethodRepository;
 
     public function __construct(ShippingmethodRepository $shippingmethodRepo)
@@ -29,6 +27,7 @@ class ShippingmethodAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +69,7 @@ class ShippingmethodAPIController extends AppBaseController
 
     /**
      * @param CreateShippingmethodAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +117,7 @@ class ShippingmethodAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +167,9 @@ class ShippingmethodAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                            $id
      * @param UpdateShippingmethodAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +231,7 @@ class ShippingmethodAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

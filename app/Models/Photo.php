@@ -15,20 +15,22 @@ class Photo extends Model
     public $timestamps = false;
 
     /**
-      * @method slider
-      * @public
-      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-      */
+     * @method slider
+     * @public
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function slider()
     {
         return $this->morphTo('App\Models\Slider', 'relationship');
     }
 
     /**
-      * @method photo_gallery
-      * @public
-      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-      */
+     * @method photo_gallery
+     * @public
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function photo_gallery()
     {
         return $this->morphTo('App\Models\PhotoGallery', 'relationship');
@@ -39,7 +41,8 @@ class Photo extends Model
      *
      * @author    Phillip Madsen
      * @public
-     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product()
     {

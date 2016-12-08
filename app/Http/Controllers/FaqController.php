@@ -26,11 +26,13 @@ class FaqController extends Controller
 
     /**
      * Display page.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show()
     {
         $faqs = $this->faq->all();
+
         return view('frontend.faq.show', compact('faqs'));
     }
 }

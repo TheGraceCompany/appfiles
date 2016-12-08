@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDealerRequest;
 use App\Http\Requests\UpdateDealerRequest;
 use App\Repositories\DealerRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class DealerController extends AppBaseController
 {
-    /** @var  DealerRepository */
+    /** @var DealerRepository */
     private $dealerRepository;
 
     public function __construct(DealerRepository $dealerRepo)
@@ -25,6 +24,7 @@ class DealerController extends AppBaseController
      * Display a listing of the Dealer.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -58,9 +58,8 @@ class DealerController extends AppBaseController
         $input = $request->all();
 
         $dealer = $this->dealerRepository->create($input);
- 	 // $dealer->created_at = \Carbon::now();
-      	 // $dealer->updated_at = \Carbon::now();
-
+     // $dealer->created_at = \Carbon::now();
+           // $dealer->updated_at = \Carbon::now();
 
         Flash::success('Dealer saved successfully.');
 
@@ -70,7 +69,7 @@ class DealerController extends AppBaseController
     /**
      * Display the specified Dealer.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -90,7 +89,7 @@ class DealerController extends AppBaseController
     /**
      * Show the form for editing the specified Dealer.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -110,7 +109,7 @@ class DealerController extends AppBaseController
     /**
      * Update the specified Dealer in storage.
      *
-     * @param  int              $id
+     * @param int                 $id
      * @param UpdateDealerRequest $request
      *
      * @return Response
@@ -135,7 +134,7 @@ class DealerController extends AppBaseController
     /**
      * Remove the specified Dealer from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

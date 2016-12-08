@@ -12,29 +12,32 @@ use View;
  *
  * @author Phillip Madsen <contact@affordableprogrammer.com>
  */
-class SearchController extends Controller {
-	/**
-	 * @var mixed
-	 */
-	protected $perPage;
+class SearchController extends Controller
+{
+    /**
+     * @var mixed
+     */
+    protected $perPage;
 
-	public function __construct() {
-		$this->perPage = config('grace.per_page');
-	}
+    public function __construct()
+    {
+        $this->perPage = config('grace.per_page');
+    }
 
-	/**
-	 * @param Request $request
-	 */
-	public function index(Request $request) {
-		$q = $request->get('search');
+    /**
+     * @param Request $request
+     */
+    public function index(Request $request)
+    {
+        $q = $request->get('search');
 
-		View::composer('frontend/layout/menu', function ($view) use ($q) {
-			$view->with('q', $q);
-		});
+        View::composer('frontend/layout/menu', function ($view) use ($q) {
+            $view->with('q', $q);
+        });
 
-		$result = Search::search($q);
-		$paginator = Pagination::makeLengthAware($result, count($result), $this->perPage);
+        $result = Search::search($q);
+        $paginator = Pagination::makeLengthAware($result, count($result), $this->perPage);
 
-		return view('frontend.search.index', compact('paginator', 'q'));
-	}
+        return view('frontend.search.index', compact('paginator', 'q'));
+    }
 }

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Box;
-use App\Repositories\BaseRepository;
 
 class BoxRepository extends BaseRepository
 {
@@ -11,11 +10,11 @@ class BoxRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'nickname'
+        'nickname',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

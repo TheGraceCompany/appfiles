@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use LaravelLocalization;
 use Ecommerce\helperFunctions;
+use LaravelLocalization;
 
 /**
  * Class HomeController.
@@ -16,6 +17,7 @@ class HomeController extends Controller
         $languages = LaravelLocalization::getSupportedLocales();
 
         helperFunctions::getCartInfo($cart, $total);
+
         return view('frontend/layout/homepage', compact('languages', 'cart', 'total'));
     }
 }

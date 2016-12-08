@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-
-    protected $table = "cart";
+    protected $table = 'cart';
     protected $fillable = ['product_id', 'amount'];
 
     /**
      * @method user
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -23,6 +23,7 @@ class Cart extends Model
     /**
      * @method product
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product()

@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
 use App\Repositories\AlertRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class AlertController extends AppBaseController
 {
-    /** @var  AlertRepository */
+    /** @var AlertRepository */
     private $alertRepository;
 
     public function __construct(AlertRepository $alertRepo)
@@ -25,6 +24,7 @@ class AlertController extends AppBaseController
      * Display a listing of the Alert.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -67,7 +67,7 @@ class AlertController extends AppBaseController
     /**
      * Display the specified Alert.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -87,7 +87,7 @@ class AlertController extends AppBaseController
     /**
      * Show the form for editing the specified Alert.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -107,7 +107,7 @@ class AlertController extends AppBaseController
     /**
      * Update the specified Alert in storage.
      *
-     * @param  int              $id
+     * @param int                $id
      * @param UpdateAlertRequest $request
      *
      * @return Response
@@ -132,7 +132,7 @@ class AlertController extends AppBaseController
     /**
      * Remove the specified Alert from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

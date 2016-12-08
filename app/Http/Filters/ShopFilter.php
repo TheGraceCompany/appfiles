@@ -2,12 +2,12 @@
 
 namespace App\Http\Filters;
 
-use Intervention\Image\Image;
 use Intervention\Image\Filters\FilterInterface;
+use Intervention\Image\Image;
 
 class ShopFilter implements FilterInterface
 {
-        // DIMENSIONS:
+    // DIMENSIONS:
         // 440 x 586 pixels
         // 270 x 360 pixels
         // 300 x 200 pixels

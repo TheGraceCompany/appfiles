@@ -2,14 +2,14 @@
 
 namespace App\Repositories\News;
 
-use Config;
-use App\Models\News;
-use Response;
-use Image;
-use File;
-use App\Repositories\RepositoryAbstract;
-use App\Repositories\CrudableInterface;
 use App\Exceptions\Validation\ValidationException;
+use App\Models\News;
+use App\Repositories\CrudableInterface;
+use App\Repositories\RepositoryAbstract;
+use Config;
+use File;
+use Image;
+use Response;
 
 /**
  * Class NewsRepository.
@@ -49,8 +49,8 @@ class NewsRepository extends RepositoryAbstract implements NewsInterface, Crudab
      * @var array
      */
     protected static $rules = [
-        'title' => 'required',
-        'content' => 'required',
+        'title'    => 'required',
+        'content'  => 'required',
         'datetime' => 'required|date',
     ];
 
@@ -110,7 +110,7 @@ class NewsRepository extends RepositoryAbstract implements NewsInterface, Crudab
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->news->orderBy('created_at', 'DESC')->where('lang', $this->getLang());
 
@@ -151,9 +151,9 @@ class NewsRepository extends RepositoryAbstract implements NewsInterface, Crudab
     /**
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function create($attributes)
     {
@@ -204,9 +204,9 @@ class NewsRepository extends RepositoryAbstract implements NewsInterface, Crudab
      * @param $id
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function update($id, $attributes)
     {
@@ -274,7 +274,7 @@ class NewsRepository extends RepositoryAbstract implements NewsInterface, Crudab
         $news->is_published = ($news->is_published) ? false : true;
         $news->save();
 
-        return Response::json(array('result' => 'success', 'changed' => ($news->is_published) ? 1 : 0));
+        return Response::json(['result' => 'success', 'changed' => ($news->is_published) ? 1 : 0]);
     }
 
     /**

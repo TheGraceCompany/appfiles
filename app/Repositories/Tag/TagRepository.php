@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Tag;
 
-use Config;
 use App\Models\Tag;
+use Config;
 
 /**
  * Class TagRepository.
@@ -62,7 +62,7 @@ class TagRepository implements TagInterface
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->tag->orderBy('created_at', 'DESC')->where('lang', getLang());
 

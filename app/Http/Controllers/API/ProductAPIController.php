@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateProductAPIRequest;
 use App\Http\Requests\API\UpdateProductAPIRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class ProductController
- * @package App\Http\Controllers\API
+ * Class ProductController.
  */
-
 class ProductAPIController extends AppBaseController
 {
     /**
@@ -57,7 +55,9 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  Request    $request
+     *
+     * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -103,7 +103,9 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  CreateProductAPIRequest $request
+     *
+     * @param CreateProductAPIRequest $request
+     *
      * @return Response
      */
     public function store(CreateProductAPIRequest $request)
@@ -149,13 +151,15 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  int        $id
+     *
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         /**
-         * @var Product $product
+         * @var Product
          */
         $product = $this->productRepository->findWithoutFail($id);
 
@@ -207,8 +211,10 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  int                     $id
-     * @param  UpdateProductAPIRequest $request
+     *
+     * @param int                     $id
+     * @param UpdateProductAPIRequest $request
+     *
      * @return Response
      */
     public function update($id, UpdateProductAPIRequest $request)
@@ -216,7 +222,7 @@ class ProductAPIController extends AppBaseController
         $input = $request->all();
 
         /**
-         * @var Product $product
+         * @var Product
          */
         $product = $this->productRepository->findWithoutFail($id);
 
@@ -263,13 +269,15 @@ class ProductAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  int        $id
+     *
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
         /**
-         * @var Product $product
+         * @var Product
          */
         $product = $this->productRepository->findWithoutFail($id);
 

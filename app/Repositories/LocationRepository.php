@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Location;
-use App\Repositories\BaseRepository;
 
 class LocationRepository extends BaseRepository
 {
@@ -25,8 +24,7 @@ class LocationRepository extends BaseRepository
     ];
 
     /**
-     * Configure the Model
-     *
+     * Configure the Model.
      */
     public function model()
     {

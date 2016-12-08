@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Key;
-use App\Repositories\BaseRepository;
 
 class KeyRepository extends BaseRepository
 {
@@ -11,11 +10,11 @@ class KeyRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'date_of_purchase'
+        'date_of_purchase',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

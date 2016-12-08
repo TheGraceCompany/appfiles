@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Project;
 
-use Config;
-use App\Models\Project;
-use Image;
-use File;
-use App\Repositories\RepositoryAbstract;
-use App\Repositories\CrudableInterface;
 use App\Exceptions\Validation\ValidationException;
+use App\Models\Project;
+use App\Repositories\CrudableInterface;
+use App\Repositories\RepositoryAbstract;
+use Config;
+use File;
+use Image;
 
 /**
  * Class ProjectRepository.
@@ -58,7 +58,7 @@ class ProjectRepository extends RepositoryAbstract implements ProjectInterface, 
      * @var array
      */
     protected static $rules = [
-        'title' => 'required',
+        'title'       => 'required',
         'description' => 'required',
     ];
 
@@ -107,7 +107,7 @@ class ProjectRepository extends RepositoryAbstract implements ProjectInterface, 
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->project->orderBy('created_at', 'DESC')->where('lang', $this->getLang());
 
@@ -134,9 +134,9 @@ class ProjectRepository extends RepositoryAbstract implements ProjectInterface, 
     /**
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function create($attributes)
     {
@@ -190,9 +190,9 @@ class ProjectRepository extends RepositoryAbstract implements ProjectInterface, 
      * @param $id
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function update($id, $attributes)
     {

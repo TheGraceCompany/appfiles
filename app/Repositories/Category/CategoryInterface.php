@@ -11,6 +11,4 @@ use App\Repositories\RepositoryInterface;
  */
 interface CategoryInterface extends RepositoryInterface
 {
-
-
 }

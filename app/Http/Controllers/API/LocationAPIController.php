@@ -13,10 +13,8 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class LocationController
- * @package App\Http\Controllers\API
+ * Class LocationController.
  */
-
 class LocationAPIController extends AppBaseController
 {
     /**
@@ -57,7 +55,9 @@ class LocationAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  Request     $request
+     *
+     * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -103,7 +103,9 @@ class LocationAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  CreateLocationAPIRequest $request
+     *
+     * @param CreateLocationAPIRequest $request
+     *
      * @return Response
      */
     public function store(CreateLocationAPIRequest $request)
@@ -149,13 +151,15 @@ class LocationAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  int         $id
+     *
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         /**
-         * @var Location $location
+         * @var Location
          */
         $location = $this->locationRepository->findWithoutFail($id);
 
@@ -207,8 +211,10 @@ class LocationAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  int                      $id
-     * @param  UpdateLocationAPIRequest $request
+     *
+     * @param int                      $id
+     * @param UpdateLocationAPIRequest $request
+     *
      * @return Response
      */
     public function update($id, UpdateLocationAPIRequest $request)
@@ -216,7 +222,7 @@ class LocationAPIController extends AppBaseController
         $input = $request->all();
 
         /**
-         * @var Location $location
+         * @var Location
          */
         $location = $this->locationRepository->findWithoutFail($id);
 
@@ -263,13 +269,15 @@ class LocationAPIController extends AppBaseController
      *          )
      *      )
      * )
-     * @param  int         $id
+     *
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
         /**
-         * @var Location $location
+         * @var Location
          */
         $location = $this->locationRepository->findWithoutFail($id);
 

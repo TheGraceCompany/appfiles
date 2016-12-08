@@ -12,45 +12,50 @@ use Validator;
  *
  * @author Phillip Madsen <contact@affordableprogrammer.com>
  */
-class MaillistController extends Controller {
-	/**
-	 * @return mixed
-	 */
-	public function getMaillist() {
-		return view('frontend.maillist.maillist');
-	}
+class MaillistController extends Controller
+{
+    /**
+     * @return mixed
+     */
+    public function getMaillist()
+    {
+        return view('frontend.maillist.maillist');
+    }
 
-	/**
-	 * @param Request $request
-	 * @return mixed
-	 */
-	public function postMaillist(Request $request) {
-		$formData = [
-			'email' => $request->get('email'),
-		];
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function postMaillist(Request $request)
+    {
+        $formData = [
+            'email' => $request->get('email'),
+        ];
 
-		$rules = [
-			'email' => 'required|email|unique:maillist,email',
-		];
+        $rules = [
+            'email' => 'required|email|unique:maillist,email',
+        ];
 
-		$validation = Validator::make($formData, $rules);
+        $validation = Validator::make($formData, $rules);
 
-		if ($validation->fails()) {
-			return Redirect::action('MaillistController@getMaillist')->withErrors($validation)->withInput();
-		}
+        if ($validation->fails()) {
+            return Redirect::action('MaillistController@getMaillist')->withErrors($validation)->withInput();
+        }
 
-		$maillist = new Maillist();
-		$maillist->email = $formData['email'];
-		$maillist->save();
+        $maillist = new Maillist();
+        $maillist->email = $formData['email'];
+        $maillist->save();
 
-		Flash::info('success');
+        Flash::info('success');
 
-		return Redirect::action('HomeController@index');
-	}
+        return Redirect::action('HomeController@index');
+    }
 
-	public function sendMail() {
-		$formData = [];
-		$mailer = new Mailer();
-		$mailer->send('emails.newsletter', 'noreply@graceframe.com', 'Title', $formData);
-	}
+    public function sendMail()
+    {
+        $formData = [];
+        $mailer = new Mailer();
+        $mailer->send('emails.newsletter', 'noreply@graceframe.com', 'Title', $formData);
+    }
 }

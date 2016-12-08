@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateCategoryAPIRequest;
 use App\Http\Requests\API\UpdateCategoryAPIRequest;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class CategoryController
- * @package App\Http\Controllers\API
+ * Class CategoryController.
  */
-
 class CategoryAPIController extends AppBaseController
 {
-    /** @var  CategoryRepository */
+    /** @var CategoryRepository */
     private $categoryRepository;
 
     public function __construct(CategoryRepository $categoryRepo)
@@ -29,6 +27,7 @@ class CategoryAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +69,7 @@ class CategoryAPIController extends AppBaseController
 
     /**
      * @param CreateCategoryAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +117,7 @@ class CategoryAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +167,9 @@ class CategoryAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                      $id
      * @param UpdateCategoryAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +231,7 @@ class CategoryAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

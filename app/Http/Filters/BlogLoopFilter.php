@@ -2,8 +2,8 @@
 
 namespace App\Http\Filters;
 
-use Intervention\Image\Image;
 use Intervention\Image\Filters\FilterInterface;
+use Intervention\Image\Image;
 
 class BlogLoopFilter implements FilterInterface
 {
@@ -12,6 +12,3 @@ class BlogLoopFilter implements FilterInterface
         return $image->encode('jpg', 90)->resize(400, 300);
     }
 }
-
-
-

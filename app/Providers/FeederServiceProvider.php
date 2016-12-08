@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Feeder\Feeder;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Class FeederServiceProvider.

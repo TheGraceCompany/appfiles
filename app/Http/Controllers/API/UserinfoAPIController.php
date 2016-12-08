@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateUserinfoAPIRequest;
 use App\Http\Requests\API\UpdateUserinfoAPIRequest;
 use App\Models\Userinfo;
 use App\Repositories\UserinfoRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class UserinfoController
- * @package App\Http\Controllers\API
+ * Class UserinfoController.
  */
-
 class UserinfoAPIController extends AppBaseController
 {
-    /** @var  UserinfoRepository */
+    /** @var UserinfoRepository */
     private $userinfoRepository;
 
     public function __construct(UserinfoRepository $userinfoRepo)
@@ -29,6 +27,7 @@ class UserinfoAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +69,7 @@ class UserinfoAPIController extends AppBaseController
 
     /**
      * @param CreateUserinfoAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +117,7 @@ class UserinfoAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +167,9 @@ class UserinfoAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                      $id
      * @param UpdateUserinfoAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +231,7 @@ class UserinfoAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

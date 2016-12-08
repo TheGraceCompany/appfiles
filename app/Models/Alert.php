@@ -11,9 +11,7 @@ class Alert extends Model
 
     public $table = 'alerts';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'alert_title',
@@ -23,7 +21,7 @@ class Alert extends Model
         'alerttype',
         'order_id',
         'user_id',
-        'product_id'
+        'product_id',
     ];
 
     /**
@@ -32,18 +30,18 @@ class Alert extends Model
      * @var array
      */
     protected $casts = [
-        'alert_title' => 'string',
+        'alert_title'   => 'string',
         'alert_message' => 'string',
-        'alerticon' => 'string',
-        'alertstyle' => 'string',
-        'alerttype' => 'string',
-        'order_id' => 'integer',
-        'user_id' => 'integer',
-        'product_id' => 'integer'
+        'alerticon'     => 'string',
+        'alertstyle'    => 'string',
+        'alerttype'     => 'string',
+        'order_id'      => 'integer',
+        'user_id'       => 'integer',
+        'product_id'    => 'integer',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */

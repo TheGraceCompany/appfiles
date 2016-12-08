@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dealer extends Model
 {
- 	use SoftDeletes;
-    	public $table = 'dealers';
+    use SoftDeletes;
+    public $table = 'dealers';
 
     protected $dates = ['pubished_at', 'deleted_at'];
 
@@ -27,7 +27,7 @@ class Dealer extends Model
         'toll_free',
         'public_email',
         'support_email',
-        'location_id'
+        'location_id',
     ];
 
     /**
@@ -36,26 +36,26 @@ class Dealer extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'string',
-        'dealer' => 'string',
-        'contact_person' => 'string',
-        'mobile' => 'string',
-        'phone' => 'string',
-        'hours_opening_mf' => 'string',
-        'hours_closing_mf' => 'string',
+        'id'                => 'string',
+        'dealer'            => 'string',
+        'contact_person'    => 'string',
+        'mobile'            => 'string',
+        'phone'             => 'string',
+        'hours_opening_mf'  => 'string',
+        'hours_closing_mf'  => 'string',
         'hours_opening_sat' => 'string',
         'hours_closing_sat' => 'string',
         'hours_opening_sun' => 'string',
         'hours_closing_sun' => 'string',
-        'company_phone' => 'string',
-        'toll_free' => 'string',
-        'public_email' => 'string',
-        'support_email' => 'string',
-        'location_id' => 'integer'
+        'company_phone'     => 'string',
+        'toll_free'         => 'string',
+        'public_email'      => 'string',
+        'support_email'     => 'string',
+        'location_id'       => 'integer',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
@@ -63,7 +63,7 @@ class Dealer extends Model
 
     ];
 
-        public function scopeActive($query)
+    public function scopeActive($query)
     {
         return $query->where('status', 1);
     }
@@ -76,4 +76,3 @@ class Dealer extends Model
         return $this->hasMany(\App\Models\Location::class, 'location_id', 'id');
     }
 }
-

@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use App\Models\Section;
 
 class UpdateSectionRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *

@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateKeyRequest;
 use App\Http\Requests\UpdateKeyRequest;
 use App\Repositories\KeyRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class KeyController extends AppBaseController
 {
-    /** @var  KeyRepository */
+    /** @var KeyRepository */
     private $keyRepository;
 
     public function __construct(KeyRepository $keyRepo)
@@ -25,6 +24,7 @@ class KeyController extends AppBaseController
      * Display a listing of the Key.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -67,7 +67,7 @@ class KeyController extends AppBaseController
     /**
      * Display the specified Key.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -87,7 +87,7 @@ class KeyController extends AppBaseController
     /**
      * Show the form for editing the specified Key.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -107,7 +107,7 @@ class KeyController extends AppBaseController
     /**
      * Update the specified Key in storage.
      *
-     * @param  int              $id
+     * @param int              $id
      * @param UpdateKeyRequest $request
      *
      * @return Response
@@ -132,7 +132,7 @@ class KeyController extends AppBaseController
     /**
      * Remove the specified Key from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

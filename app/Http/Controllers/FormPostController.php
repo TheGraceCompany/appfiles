@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Services\Mailer;
 use App\Models\FormPost;
-use Validator;
+use App\Services\Mailer;
+use Illuminate\Http\Request;
 use Redirect;
+use Validator;
 
 /**
  * Class FormPostController.
@@ -48,8 +47,7 @@ class FormPostController extends Controller
 
         $validation = Validator::make($formData, $rules);
 
-        if($validation->fails())
-        {
+        if ($validation->fails()) {
             return Redirect::action('FormPostController@getContact')->withErrors($validation)->withInput();
         }
 

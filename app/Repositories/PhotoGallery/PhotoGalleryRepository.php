@@ -2,15 +2,15 @@
 
 namespace App\Repositories\PhotoGallery;
 
-use App\Models\PhotoGallery;
-use File;
-use Config;
+use App\Exceptions\Validation\ValidationException;
 use App\Models\Photo;
+use App\Models\PhotoGallery;
+use App\Repositories\CrudableInterface;
+use App\Repositories\RepositoryAbstract;
+use Config;
+use File;
 use Image;
 use Response;
-use App\Repositories\RepositoryAbstract;
-use App\Repositories\CrudableInterface;
-use App\Exceptions\Validation\ValidationException;
 
 /**
  * Class PhotoGalleryRepository.
@@ -113,7 +113,7 @@ class PhotoGalleryRepository extends RepositoryAbstract implements PhotoGalleryI
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->photoGallery->orderBy('created_at', 'DESC')->where('lang', $this->getLang());
 
@@ -144,9 +144,9 @@ class PhotoGalleryRepository extends RepositoryAbstract implements PhotoGalleryI
     /**
      * @param $attributes
      *
-     * @return mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return mixed
      */
     public function create($attributes)
     {
@@ -164,9 +164,9 @@ class PhotoGalleryRepository extends RepositoryAbstract implements PhotoGalleryI
      * @param $id
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function update($id, $attributes)
     {
@@ -215,16 +215,16 @@ class PhotoGalleryRepository extends RepositoryAbstract implements PhotoGalleryI
         $photo_gallery->is_published = ($photo_gallery->is_published) ? false : true;
         $photo_gallery->save();
 
-        return Response::json(array('result' => 'success', 'changed' => ($photo_gallery->is_published) ? 1 : 0));
+        return Response::json(['result' => 'success', 'changed' => ($photo_gallery->is_published) ? 1 : 0]);
     }
 
     /**
      * @param $id
      * @param $attributes
      *
-     * @return bool
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool
      */
     public function upload($id, $attributes)
     {

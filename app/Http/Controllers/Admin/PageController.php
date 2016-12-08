@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use View;
-use Input;
-use Flash;
-use Response;
-use App\Services\Pagination;
+use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Page\PageInterface;
 use App\Repositories\Page\PageRepository as Page;
-use App\Exceptions\Validation\ValidationException;
+use App\Services\Pagination;
+use Flash;
+use Input;
+use Response;
+use View;
 
 /**
  * Class PageController.

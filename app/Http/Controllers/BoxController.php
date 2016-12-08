@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateBoxRequest;
 use App\Http\Requests\UpdateBoxRequest;
 use App\Repositories\BoxRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class BoxController extends AppBaseController
 {
-    /** @var  BoxRepository */
+    /** @var BoxRepository */
     private $boxRepository;
 
     public function __construct(BoxRepository $boxRepo)
@@ -25,6 +24,7 @@ class BoxController extends AppBaseController
      * Display a listing of the Box.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -67,7 +67,7 @@ class BoxController extends AppBaseController
     /**
      * Display the specified Box.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -87,7 +87,7 @@ class BoxController extends AppBaseController
     /**
      * Show the form for editing the specified Box.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -107,7 +107,7 @@ class BoxController extends AppBaseController
     /**
      * Update the specified Box in storage.
      *
-     * @param  int              $id
+     * @param int              $id
      * @param UpdateBoxRequest $request
      *
      * @return Response
@@ -132,7 +132,7 @@ class BoxController extends AppBaseController
     /**
      * Remove the specified Box from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
