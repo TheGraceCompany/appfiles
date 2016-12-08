@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Services;
 
 /**
@@ -9,6 +13,7 @@ namespace App\Services;
  */
 interface MailerInterface
 {
-    public function send($view, $email, $subject, $data = array());
-    public function queue($view, $email, $subject, $data = array());
+    public function send($view, $email, $subject, $data = []);
+
+    public function queue($view, $email, $subject, $data = []);
 }

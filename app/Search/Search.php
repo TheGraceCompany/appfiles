@@ -1,9 +1,13 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Search;
 
-use App\Models\News;
 use App\Models\Article;
+use App\Models\News;
 use App\Models\PhotoGallery;
 
 /**

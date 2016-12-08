@@ -1,16 +1,20 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
-use View;
-use Input;
-use Flash;
-use App\Models\Section;
-use App\Services\Pagination;
-use App\Http\Controllers\Controller;
-use App\Repositories\Category\CategoryInterface;
 use App\Exceptions\Validation\ValidationException;
+use App\Http\Controllers\Controller;
+use App\Models\Section;
+use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository as Category;
+use App\Services\Pagination;
+use Flash;
+use Input;
+use View;
 
 /**
  * Class CategoryController.
@@ -50,10 +54,11 @@ class CategoryController extends Controller
     public function create()
     {
         $sections_all = Section::all();
-        $sections = array();
-        foreach($sections_all as $row){
+        $sections = [];
+        foreach ($sections_all as $row) {
             $sections[$row->id] = $row->name;
         }
+
         return view('backend.categories.create', compact('sections'));
     }
 
@@ -99,11 +104,12 @@ class CategoryController extends Controller
     {
         $category = $this->category->find($id);
         $sections_all = Section::all();
-        $sections = array();
-        foreach($sections_all as $row){
+        $sections = [];
+        foreach ($sections_all as $row) {
             $sections[$row->id] = $row->name;
         }
-        return view('backend.categories.edit', compact('category','sections'));
+
+        return view('backend.categories.edit', compact('category', 'sections'));
     }
 
     /**

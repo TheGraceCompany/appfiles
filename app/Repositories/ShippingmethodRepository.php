@@ -1,9 +1,12 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories;
 
 use App\Models\Shippingmethod;
-use App\Repositories\BaseRepository;
 
 class ShippingmethodRepository extends BaseRepository
 {
@@ -22,11 +25,11 @@ class ShippingmethodRepository extends BaseRepository
         'add_insurance',
         'negotiated_rates',
         'weight',
-        'measurement'
+        'measurement',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

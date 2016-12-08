@@ -1,16 +1,20 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
-use Mail;
-use Sentinel;
-use Reminder;
-use Redirect;
-use Validator;
-use App\User;
-use App\Services\Mailer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Mailer;
+use App\User;
+use Illuminate\Http\Request;
+use Mail;
+use Redirect;
+use Reminder;
+use Sentinel;
+use Validator;
 
 /**
  * Class AuthController.
@@ -49,10 +53,10 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
-        $credentials = array(
-            'email' => $request->get('email'),
+        $credentials = [
+            'email'    => $request->get('email'),
             'password' => $request->get('password'),
-        );
+        ];
 
         $rememberMe = $request->get('rememberMe');
 
@@ -98,13 +102,13 @@ class AuthController extends Controller
 
     public function postForgotPassword(Request $request)
     {
-        $credentials = array(
+        $credentials = [
             'email' => $request->get('email'),
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'email' => 'required|email',
-        );
+        ];
 
         $validation = Validator::make($credentials, $rules);
 
@@ -126,7 +130,7 @@ class AuthController extends Controller
         // Get the password reset code
         $resetCode = $reminderData->code;
 
-        $formData = array('userId' => $this->user->id, 'resetCode' => $resetCode);
+        $formData = ['userId' => $this->user->id, 'resetCode' => $resetCode];
 
         try {
             Mail::send('emails.auth.reset-password', $formData, function ($message) use ($request) {
@@ -136,7 +140,7 @@ class AuthController extends Controller
 
             return Redirect::route('admin.login');
         } catch (Exception $ex) {
-            return Redirect::route('admin.forgot.password')->withErrors(array('forgot-password' => 'Password reset failed'));
+            return Redirect::route('admin.forgot.password')->withErrors(['forgot-password' => 'Password reset failed']);
         }
         /*$mailer = new Mailer;
         $mailer->send('emails.auth.reset-password', 'user@graceframe.com', 'Reset Password', $formData);*/
@@ -158,19 +162,19 @@ class AuthController extends Controller
 
     public function postResetPassword(Request $request)
     {
-        $formData = array(
-            'id' => $request->get('id'),
-            'code' => $request->get('code'),
-            'password' => $request->get('password'),
+        $formData = [
+            'id'               => $request->get('id'),
+            'code'             => $request->get('code'),
+            'password'         => $request->get('password'),
             'confirm-password' => $request->get('confirm_password'),
-        );
+        ];
 
-        $rules = array(
-            'id' => 'required',
-            'code' => 'required',
-            'password' => 'required|min:4',
+        $rules = [
+            'id'               => 'required',
+            'code'             => 'required',
+            'password'         => 'required|min:4',
             'confirm-password' => 'required|same:password',
-        );
+        ];
 
         $validation = Validator::make($formData, $rules);
 
@@ -186,7 +190,7 @@ class AuthController extends Controller
             return Redirect::route('admin.login');
         } else {
             // Password reset failed
-            return Redirect::route('admin.reset.password')->withErrors(array('forgot-password' => 'Password reset failed'));
+            return Redirect::route('admin.reset.password')->withErrors(['forgot-password' => 'Password reset failed']);
         }
     }
 }

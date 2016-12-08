@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
 /**
@@ -12,6 +16,7 @@ class LanguageController extends Controller
     public function setLocale($language)
     {
         LaravelLocalization::setLocale($language);
+
         return Redirect::route('dashboard');
     }
 }

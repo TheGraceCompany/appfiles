@@ -1,25 +1,27 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateKeyAPIRequest;
 use App\Http\Requests\API\UpdateKeyAPIRequest;
 use App\Models\Key;
 use App\Repositories\KeyRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class KeyController
- * @package App\Http\Controllers\API
+ * Class KeyController.
  */
-
 class KeyAPIController extends AppBaseController
 {
-    /** @var  KeyRepository */
+    /** @var KeyRepository */
     private $keyRepository;
 
     public function __construct(KeyRepository $keyRepo)
@@ -29,6 +31,7 @@ class KeyAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +73,7 @@ class KeyAPIController extends AppBaseController
 
     /**
      * @param CreateKeyAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +121,7 @@ class KeyAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +171,9 @@ class KeyAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                 $id
      * @param UpdateKeyAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +235,7 @@ class KeyAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

@@ -1,10 +1,13 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Composers;
+
 use Ecommerce\helperFunctions;
 
-/**
- *
- */
 class MenuCartComposer
 {
     /**

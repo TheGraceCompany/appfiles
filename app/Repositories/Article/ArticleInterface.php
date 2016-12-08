@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories\Article;
 
 use App\Repositories\RepositoryInterface;
@@ -18,4 +22,3 @@ interface ArticleInterface extends RepositoryInterface
      */
     public function getBySlug($slug);
 }
-

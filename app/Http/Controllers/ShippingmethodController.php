@@ -1,19 +1,22 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateShippingmethodRequest;
 use App\Http\Requests\UpdateShippingmethodRequest;
 use App\Repositories\ShippingmethodRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class ShippingmethodController extends AppBaseController
 {
-    /** @var  ShippingmethodRepository */
+    /** @var ShippingmethodRepository */
     private $shippingmethodRepository;
 
     public function __construct(ShippingmethodRepository $shippingmethodRepo)
@@ -25,6 +28,7 @@ class ShippingmethodController extends AppBaseController
      * Display a listing of the Shippingmethod.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -67,7 +71,7 @@ class ShippingmethodController extends AppBaseController
     /**
      * Display the specified Shippingmethod.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -87,7 +91,7 @@ class ShippingmethodController extends AppBaseController
     /**
      * Show the form for editing the specified Shippingmethod.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -107,7 +111,7 @@ class ShippingmethodController extends AppBaseController
     /**
      * Update the specified Shippingmethod in storage.
      *
-     * @param  int              $id
+     * @param int                         $id
      * @param UpdateShippingmethodRequest $request
      *
      * @return Response
@@ -132,7 +136,7 @@ class ShippingmethodController extends AppBaseController
     /**
      * Remove the specified Shippingmethod from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

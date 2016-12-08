@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories\Article;
 
 use App\Services\Cache\CacheInterface;

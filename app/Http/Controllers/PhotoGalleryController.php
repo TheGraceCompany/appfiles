@@ -1,9 +1,13 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
-use App\Repositories\PhotoGallery\PhotoGalleryRepository as PhotoGallery;
 use App\Repositories\PhotoGallery\PhotoGalleryInterface;
+use App\Repositories\PhotoGallery\PhotoGalleryRepository as PhotoGallery;
 use Response;
 
 /**

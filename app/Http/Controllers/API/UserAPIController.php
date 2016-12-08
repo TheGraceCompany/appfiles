@@ -1,25 +1,27 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateUserAPIRequest;
 use App\Http\Requests\API\UpdateUserAPIRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class UserController
- * @package App\Http\Controllers\API
+ * Class UserController.
  */
-
 class UserAPIController extends AppBaseController
 {
-    /** @var  UserRepository */
+    /** @var UserRepository */
     private $userRepository;
 
     public function __construct(UserRepository $userRepo)
@@ -29,6 +31,7 @@ class UserAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +73,7 @@ class UserAPIController extends AppBaseController
 
     /**
      * @param CreateUserAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +121,7 @@ class UserAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +171,9 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                  $id
      * @param UpdateUserAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +235,7 @@ class UserAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

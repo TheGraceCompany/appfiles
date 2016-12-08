@@ -1,19 +1,22 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Repositories\LocationRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class LocationController extends AppBaseController
 {
-    /** @var  LocationRepository */
+    /** @var LocationRepository */
     private $locationRepository;
 
     public function __construct(LocationRepository $locationRepo)
@@ -25,6 +28,7 @@ class LocationController extends AppBaseController
      * Display a listing of the Location.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -61,11 +65,11 @@ class LocationController extends AppBaseController
         Flash::success('Location saved successfully.');
 
         if ($request->has('user_id')) {
-            /**
+            /*
              * Linking the user to the location
              */
             LocationUser::create(['user_id' => $request->user_id, 'location_id' => $location->id]);
-            
+
             return redirect('admin/user/'.$request->user_id.'/edit#panel_user_locations');
         }
 
@@ -75,7 +79,7 @@ class LocationController extends AppBaseController
     /**
      * Display the specified Location.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -95,7 +99,7 @@ class LocationController extends AppBaseController
     /**
      * Show the form for editing the specified Location.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -115,7 +119,7 @@ class LocationController extends AppBaseController
     /**
      * Update the specified Location in storage.
      *
-     * @param  int              $id
+     * @param int                   $id
      * @param UpdateLocationRequest $request
      *
      * @return Response
@@ -140,7 +144,7 @@ class LocationController extends AppBaseController
     /**
      * Remove the specified Location from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

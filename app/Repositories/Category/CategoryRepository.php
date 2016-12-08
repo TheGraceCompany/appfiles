@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories\Category;
 
 use App\Exceptions\Validation\ValidationException;
@@ -10,8 +15,6 @@ use Config;
 use Event;
 use File;
 use Image;
-use Response;
-use Str;
 
 /**
  * Class CategoryRepository.
@@ -49,7 +52,7 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
      * @var array
      */
     protected static $rules = [
-        'title' => 'required|min:3|unique:categories'
+        'title' => 'required|min:3|unique:categories',
     ];
 
     /**
@@ -59,11 +62,11 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
     {
         $this->category = $category;
 
-        $config         = Config::get('grace');
-        $this->perPage  = $config['per_page'];
-        $this->width    = $config['modules']['category']['image_size']['width'];
-        $this->height   = $config['modules']['category']['image_size']['height'];
-        $this->imgDir   = $config['modules']['category']['image_dir'];
+        $config = Config::get('grace');
+        $this->perPage = $config['per_page'];
+        $this->width = $config['modules']['category']['image_size']['width'];
+        $this->height = $config['modules']['category']['image_size']['height'];
+        $this->imgDir = $config['modules']['category']['image_dir'];
     }
 
     /**
@@ -78,22 +81,23 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
      * @param $page
      * @param $limit
      * @param $all
+     *
      * @return mixed
      */
     public function paginate($page = 1, $limit = 10, $all = false)
     {
-        $result             = new \StdClass();
-        $result->page       = $page;
-        $result->limit      = $limit;
+        $result = new \StdClass();
+        $result->page = $page;
+        $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items      = [];
+        $result->items = [];
 
         $query = $this->category->orderBy('title');
 
         $categories = $query->skip($limit * ($page - 1))->take($limit)->where('lang', $this->getLang())->get();
 
         $result->totalItems = $this->totalCategories();
-        $result->items      = $categories->all();
+        $result->items = $categories->all();
 
         return $result;
     }
@@ -108,6 +112,7 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function find($id)
@@ -117,6 +122,7 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
 
     /**
      * @param $slug
+     *
      * @return mixed
      */
     public function getArticlesBySlug($slug)
@@ -136,16 +142,16 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
             }
             if ($file) {
                 $destinationPath = public_path().$this->imgDir;
-                $fileName        = $file->getClientOriginalName();
-                $fileSize        = $file->getClientSize();
+                $fileName = $file->getClientOriginalName();
+                $fileSize = $file->getClientSize();
 
                 $upload_success = $file->move($destinationPath, $fileName);
 
                 if ($upload_success) {
-                        Image::make($destinationPath.$fileName)
+                    Image::make($destinationPath.$fileName)
                             ->resize($this->width, $this->height, function ($constraint) {
-                            $constraint->aspectRatio();
-                        })->save($destinationPath.$fileName);
+                                $constraint->aspectRatio();
+                            })->save($destinationPath.$fileName);
 
                     $this->category->banner = $fileName;
                 }
@@ -169,34 +175,33 @@ class CategoryRepository extends RepositoryAbstract implements CategoryInterface
 
     /**
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
-     *
      */
     public function update($id, $attributes)
     {
-        $rules = array('title' => 'required|min:3|unique:categories,title,'.$id);
+        $rules = ['title' => 'required|min:3|unique:categories,title,'.$id];
         $this->category = $this->find($id);
-        
-        if ($this->isValid($attributes,$rules)) {
+
+        if ($this->isValid($attributes, $rules)) {
             $file = null;
             if (isset($attributes['file'])) {
                 $file = $attributes['file'];
             }
             if ($file) {
                 $destinationPath = public_path().$this->imgDir;
-                $fileName        = $file->getClientOriginalName();
-                $fileSize        = $file->getClientSize();
+                $fileName = $file->getClientOriginalName();
+                $fileSize = $file->getClientSize();
 
                 $upload_success = $file->move($destinationPath, $fileName);
 
                 if ($upload_success) {
-                        Image::make($destinationPath.$fileName)
+                    Image::make($destinationPath.$fileName)
                             ->resize($this->width, $this->height, function ($constraint) {
-                            $constraint->aspectRatio();
-                        })->save($destinationPath.$fileName);
-                        
+                                $constraint->aspectRatio();
+                            })->save($destinationPath.$fileName);
+
                     // delete old image
-                    File::delete($destinationPath.$this->category->banner);    
-                        
+                    File::delete($destinationPath.$this->category->banner);
+
                     $this->category->banner = $fileName;
                 }
             }

@@ -1,9 +1,14 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
 use App\Repositories\Page\PageInterface;
 use App\Repositories\Page\PageRepository as Page;
-use \Ecommerce\helperFunctions;
+use Ecommerce\helperFunctions;
 
 /**
  * Class PageController.
@@ -29,6 +34,7 @@ class PageController extends Controller
      * Display page.
      *
      * @param  $slug
+     *
      * @return \Illuminate\View\View
      */
     public function show($slug)
@@ -39,6 +45,7 @@ class PageController extends Controller
             return Response::view('errors.missing', [], 404);
         }
         helperFunctions::getCartInfo($cart, $total);
+
         return view('frontend.page.show', compact('page', 'cart', 'total'));
     }
 }

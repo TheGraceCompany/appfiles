@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Criteria;
 
 use Illuminate\Http\Request;
@@ -21,12 +25,13 @@ class LimitOffsetCriteria implements CriteriaInterface
      * Apply criteria in query repository.
      *
      * @param  $model
-     * @param  \Prettus\Repository\Contracts\RepositoryInterface $repository
+     * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
+     *
      * @return mixed
      */
     public function apply($model, \Prettus\Repository\Contracts\RepositoryInterface $repository)
     {
-        $limit  = $this->request->get('limit', null);
+        $limit = $this->request->get('limit', null);
         $offset = $this->request->get('offset', null);
 
         if ($limit) {

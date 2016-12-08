@@ -1,25 +1,27 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateSectionAPIRequest;
 use App\Http\Requests\API\UpdateSectionAPIRequest;
 use App\Models\Section;
 use App\Repositories\SectionRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class SectionController
- * @package App\Http\Controllers\API
+ * Class SectionController.
  */
-
 class SectionAPIController extends AppBaseController
 {
-    /** @var  SectionRepository */
+    /** @var SectionRepository */
     private $sectionRepository;
 
     public function __construct(SectionRepository $sectionRepo)
@@ -29,6 +31,7 @@ class SectionAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +73,7 @@ class SectionAPIController extends AppBaseController
 
     /**
      * @param CreateSectionAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +121,7 @@ class SectionAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +171,9 @@ class SectionAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                     $id
      * @param UpdateSectionAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +235,7 @@ class SectionAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

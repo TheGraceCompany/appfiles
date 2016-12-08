@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +36,7 @@ class ComposerServiceProvider extends ServiceProvider
     /**
      * Register.
      */
-    public function register() {}
+    public function register()
+    {
+    }
 }

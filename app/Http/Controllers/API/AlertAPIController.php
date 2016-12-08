@@ -1,25 +1,27 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CreateAlertAPIRequest;
 use App\Http\Requests\API\UpdateAlertAPIRequest;
 use App\Models\Alert;
 use App\Repositories\AlertRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class AlertController
- * @package App\Http\Controllers\API
+ * Class AlertController.
  */
-
 class AlertAPIController extends AppBaseController
 {
-    /** @var  AlertRepository */
+    /** @var AlertRepository */
     private $alertRepository;
 
     public function __construct(AlertRepository $alertRepo)
@@ -29,6 +31,7 @@ class AlertAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +73,7 @@ class AlertAPIController extends AppBaseController
 
     /**
      * @param CreateAlertAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +121,7 @@ class AlertAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +171,9 @@ class AlertAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                   $id
      * @param UpdateAlertAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +235,7 @@ class AlertAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

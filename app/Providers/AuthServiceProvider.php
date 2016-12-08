@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;

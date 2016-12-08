@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories\Slider;
 
 use App\Services\Cache\CacheInterface;

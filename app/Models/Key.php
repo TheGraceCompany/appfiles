@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Eloquent as Model;
@@ -11,9 +15,7 @@ class Key extends Model
 
     public $table = 'keys';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'order_id',
@@ -24,7 +26,7 @@ class Key extends Model
         'license_key',
         'requested_key',
         'generated_key',
-        'status'
+        'status',
     ];
 
     /**
@@ -33,19 +35,19 @@ class Key extends Model
      * @var array
      */
     protected $casts = [
-        'order_id' => 'integer',
-        'user_id' => 'integer',
-        'product_id' => 'integer',
+        'order_id'         => 'integer',
+        'user_id'          => 'integer',
+        'product_id'       => 'integer',
         'date_of_purchase' => 'datetime',
-        'warranty_key' => 'string',
-        'license_key' => 'string',
-        'requested_key' => 'string',
-        'generated_key' => 'string',
-         'status' => 'boolean',
+        'warranty_key'     => 'string',
+        'license_key'      => 'string',
+        'requested_key'    => 'string',
+        'generated_key'    => 'string',
+         'status'          => 'boolean',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
@@ -53,9 +55,9 @@ class Key extends Model
 
     ];
 
-/**
- * todo add status to key table and uncomment this function
- */
+    /**
+     * todo add status to key table and uncomment this function.
+     */
     // public function scopeActive($query)
     // {
     //     return $query->where('status', 1);

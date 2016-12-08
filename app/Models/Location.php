@@ -1,12 +1,16 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Location extends Model {
-
+class Location extends Model
+{
     use SoftDeletes;
 
     public $table = 'locations';
@@ -29,7 +33,7 @@ class Location extends Model {
         'zipcode',
         'latitude',
         'longitude',
-        'status'
+        'status',
     ];
 
     /**
@@ -38,29 +42,30 @@ class Location extends Model {
      * @var array
      */
     protected $casts = [
-        'location_type' => 'string',
-        'nickname' => 'string',
-        'address' => 'string',
-        'street' => 'string',
+        'location_type'     => 'string',
+        'nickname'          => 'string',
+        'address'           => 'string',
+        'street'            => 'string',
         'street_additional' => 'string',
-        'city' => 'string',
-        'state' => 'string',
-        'country' => 'string',
-        'zipcode' => 'string',
-        'latitude' => 'string',
-        'longitude' => 'string',
-        'status' => 'boolean',
+        'city'              => 'string',
+        'state'             => 'string',
+        'country'           => 'string',
+        'zipcode'           => 'string',
+        'latitude'          => 'string',
+        'longitude'         => 'string',
+        'status'            => 'boolean',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
     ];
 
-    public function scopeActive($query) {
+    public function scopeActive($query)
+    {
         return $query->where('status', 1);
     }
 
@@ -68,14 +73,16 @@ class Location extends Model {
      * Relationship with the dealers model.
      *
      * @author    Phillip Madsen
-     * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function Dealers() {
+    public function Dealers()
+    {
         return $this->belongsToMany(Dealer::class);
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->hasOne(User::class);
     }
-
 }

@@ -1,48 +1,50 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ProductFeature
- * @package App\Models
+ * Class ProductFeature.
  */
 class ProductFeature extends Model
 {
+    /**
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
-	/**
-	 * @var array
-	 */
-	protected $dates = ['deleted_at'];
+    /**
+     * @var array
+     */
+    protected $guarded = ['id'];
 
-	/**
-	 * @var array
-	 */
-	protected $guarded = ['id'];
+    /**
+     * @var string
+     */
+    protected $table = 'product_features';
 
-	/**
-	 * @var string
-	 */
-	protected $table = 'product_features';
-
-
-	/**
-	 * @var array
-	 */
-	public $fillable = [
+    /**
+     * @var array
+     */
+    public $fillable = [
         'feature_name',
         'useicon',
         'icon',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
-	/**
-	 * @var array
-	 */
-	protected $casts = [
+    /**
+     * @var array
+     */
+    protected $casts = [
         'feature_name' => 'string',
         'useicon'      => 'boolean',
-        'icon'         => 'string'
+        'icon'         => 'string',
     ];
 }

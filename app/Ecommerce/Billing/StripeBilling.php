@@ -1,8 +1,14 @@
-<?php namespace Ecommerce\Billing;
+<?php
 
-use Stripe\Stripe;
+/*
+ * @author Phillip Madsen
+ */
+
+namespace Ecommerce\Billing;
+
 use Stripe\Charge;
 use Stripe\Error\Card;
+use Stripe\Stripe;
 
 class StripeBilling implements BillingInterface
 {
@@ -16,10 +22,10 @@ class StripeBilling implements BillingInterface
     {
         try {
             return Charge::create([
-                'amount' => $data['amount']*100,
-                'currency' => 'usd',
+                'amount'      => $data['amount'] * 100,
+                'currency'    => 'usd',
                 'description' => $data['email'],
-                'source' => $data['token']
+                'source'      => $data['token'],
             ]);
         } catch (Card $e) {
             dd('Card was declined');

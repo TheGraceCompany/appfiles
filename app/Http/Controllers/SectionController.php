@@ -1,19 +1,22 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
 use App\Repositories\SectionRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Http\Request;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 class SectionController extends AppBaseController
 {
-    /** @var  SectionRepository */
+    /** @var SectionRepository */
     private $sectionRepository;
 
     public function __construct(SectionRepository $sectionRepo)
@@ -25,6 +28,7 @@ class SectionController extends AppBaseController
      * Display a listing of the Section.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -66,7 +70,7 @@ class SectionController extends AppBaseController
     /**
      * Display the specified Section.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -86,7 +90,7 @@ class SectionController extends AppBaseController
     /**
      * Show the form for editing the specified Section.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -106,7 +110,7 @@ class SectionController extends AppBaseController
     /**
      * Update the specified Section in storage.
      *
-     * @param  int              $id
+     * @param int                  $id
      * @param UpdateSectionRequest $request
      *
      * @return Response
@@ -131,7 +135,7 @@ class SectionController extends AppBaseController
     /**
      * Remove the specified Section from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */

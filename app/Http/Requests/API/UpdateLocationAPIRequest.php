@@ -1,8 +1,11 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Requests\API;
 
-use App\Http\Requests\API\APIRequest;
 use App\Models\Location;
 
 class UpdateLocationAPIRequest extends APIRequest

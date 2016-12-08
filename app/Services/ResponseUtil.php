@@ -1,12 +1,17 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Services;
 
 class ResponseUtil
 {
     /**
-     * @param  string  $message
-     * @param  mixed   $data
+     * @param string $message
+     * @param mixed  $data
+     *
      * @return array
      */
     public static function makeResponse($message, $data)
@@ -19,8 +24,9 @@ class ResponseUtil
     }
 
     /**
-     * @param  string  $message
-     * @param  array   $data
+     * @param string $message
+     * @param array  $data
+     *
      * @return array
      */
     public static function makeError($message, array $data = [])
