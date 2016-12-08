@@ -5,6 +5,7 @@
  */
 
 namespace App\Composers;
+
 use Ecommerce\helperFunctions;
 
 class MenuCartComposer
