@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Composers;
 
 use App\Repositories\Menu\MenuInterface;

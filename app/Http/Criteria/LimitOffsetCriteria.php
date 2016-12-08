@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Http\Criteria;
 
 use Illuminate\Http\Request;

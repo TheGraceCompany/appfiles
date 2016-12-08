@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Intervention\Image\Filters;
 
 class DemoFilter implements FilterInterface

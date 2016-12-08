@@ -1,7 +1,6 @@
 <?php
 
 
-
 Route::get('/r', function () {
     /**
      * undocumented function.

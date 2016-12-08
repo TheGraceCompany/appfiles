@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\Video;
 
 use App\Exceptions\Validation\ValidationException;

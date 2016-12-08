@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories;
 
 use Exception;

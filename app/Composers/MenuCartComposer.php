@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Composers;
 
 use Ecommerce\helperFunctions;

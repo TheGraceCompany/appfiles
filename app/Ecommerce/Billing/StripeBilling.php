@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Ecommerce\Billing;
 
 use Stripe\Charge;

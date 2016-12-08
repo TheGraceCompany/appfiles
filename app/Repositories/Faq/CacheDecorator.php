@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\Faq;
 
 use App\Services\Cache\CacheInterface;

@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\News;
 
 use App\Services\Cache\CacheInterface;

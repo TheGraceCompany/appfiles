@@ -1,7 +1,6 @@
 <?php
 
 
-
 class Stringhelpers
 {
     // string helper functions

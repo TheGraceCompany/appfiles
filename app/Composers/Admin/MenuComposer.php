@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Composers\Admin;
 
 use App\Models\FormPost;

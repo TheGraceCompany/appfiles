@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Repositories\PhotoGallery;
 
 use App\Services\Cache\CacheInterface;

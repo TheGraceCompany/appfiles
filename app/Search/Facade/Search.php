@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Search\Facade;
 
 use Illuminate\Support\Facades\Facade;

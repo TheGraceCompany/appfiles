@@ -1,7 +1,6 @@
 <?php
 
 
-
 Route::get('dealers', 'DealerAPIController@index');
 Route::post('dealers', 'DealerAPIController@store');
 Route::get('dealers/{dealers}', 'DealerAPIController@show');

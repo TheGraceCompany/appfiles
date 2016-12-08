@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Ecommerce;
 
 use App\Models\Cart;

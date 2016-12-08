@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Http\Filters;
 
 use Intervention\Image\Filters\FilterInterface;
