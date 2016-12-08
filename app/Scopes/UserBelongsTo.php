@@ -1,15 +1,19 @@
-<?php namespace App\Scopes;
+<?php
+
+namespace App\Scopes;
 
 /**
- * Class UserBelongsTo
+ * Class UserBelongsTo.
+ *
  * @property int $user_id
+ *
  * @method static $this getByUser(int $iUserID)
  */
-trait UserBelongsTo {
-
-    public function scopeGetByUser($obQuery, $sData) {
-
-        if(!empty($sData)) {
+trait UserBelongsTo
+{
+    public function scopeGetByUser($obQuery, $sData)
+    {
+        if (!empty($sData)) {
             $obQuery->where('user_id', $sData);
         }
 

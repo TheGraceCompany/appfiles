@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use View;
 use App\Models\FormPost;
 use Response;
+use View;
 
 /**
  * Class FormPostController.
@@ -69,6 +69,6 @@ class FormPostController extends Controller
         $formPost->is_answered = ($formPost->is_answered) ? false : true;
         $formPost->save();
 
-        return Response::json(array('result' => 'success', 'changed' => ($formPost->is_answered) ? 1 : 0));
+        return Response::json(['result' => 'success', 'changed' => ($formPost->is_answered) ? 1 : 0]);
     }
 }

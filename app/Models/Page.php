@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Cviebrock\EloquentSluggable\SluggableInterface;
 use App\Interfaces\ModelInterface as ModelInterface;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
 /**
  * Class Page.
@@ -17,7 +17,7 @@ class Page extends BaseModel implements ModelInterface, SluggableInterface
 
     public $table = 'pages';
 
-       public $fillable = [
+    public $fillable = [
         'is_published',
         'is_draft',
         'has_product_link',
@@ -43,15 +43,15 @@ class Page extends BaseModel implements ModelInterface, SluggableInterface
         'author',
         'section_id',
         'published_at',
-        'added_on'
+        'added_on',
     ];
 
     protected $appends = ['url'];
 
-    protected $sluggable = array(
+    protected $sluggable = [
         'build_from' => 'title',
-        'save_to' => 'slug',
-    );
+        'save_to'    => 'slug',
+    ];
 
     public function setUrlAttribute($value)
     {

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use App\Repositories\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
@@ -16,11 +15,11 @@ class UserRepository extends BaseRepository
         'username',
         'email',
         'isAdmin',
-        'slug'
+        'slug',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

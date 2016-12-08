@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Faq;
 
-use Config;
-use App\Models\Faq;
-use App\Repositories\RepositoryAbstract;
-use App\Repositories\CrudableInterface;
 use App\Exceptions\Validation\ValidationException;
+use App\Models\Faq;
+use App\Repositories\CrudableInterface;
+use App\Repositories\RepositoryAbstract;
+use Config;
 
 /**
  * Class FaqRepository.
@@ -15,16 +15,15 @@ use App\Exceptions\Validation\ValidationException;
  */
 class FaqRepository extends RepositoryAbstract implements FaqInterface, CrudableInterface
 {
-
     protected $perPage;
-	protected $width;
-	protected $height;
-	protected $imgDir;
+    protected $width;
+    protected $height;
+    protected $imgDir;
     protected $faq;
 
     protected static $rules = [
         'question' => 'required',
-        'answer' => 'required',
+        'answer'   => 'required',
     ];
 
     /**
@@ -68,7 +67,7 @@ class FaqRepository extends RepositoryAbstract implements FaqInterface, Crudable
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->faq->orderBy('created_at', 'DESC')->where('lang', $this->getLang());
 
@@ -93,14 +92,12 @@ class FaqRepository extends RepositoryAbstract implements FaqInterface, Crudable
     /**
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function create($attributes)
     {
-
-
         $file = null;
         if (isset($attributes['thumbnail'])) {
             $file = $attributes['thumbnail'];
@@ -111,21 +108,19 @@ class FaqRepository extends RepositoryAbstract implements FaqInterface, Crudable
         File::delete($destinationPath.$this->product->filename);
         $destinationPath = $destinationPath;
 
-
         $fileName = $file->getClientOriginalName();
         $fileSize = $file->getClientSize();
 
         $upload_success = $file->move($destinationPath, $fileName);
 
         if ($upload_success) {
-
             $upload_success = $file->move($destinationPath, $fileName);
 
             if ($upload_success) {
                 Image::make($destinationPath.$fileName)->resize(
-                    $this->width, $this->height,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationPath.$fileName);
+                    $this->width, $this->height, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationPath.$fileName);
 
                 //  $this->faq->file_name = $fileName;
                 //  $this->faq->file_size = $fileSize;
@@ -134,7 +129,6 @@ class FaqRepository extends RepositoryAbstract implements FaqInterface, Crudable
 
            // $product['thumbnail'] = '/' . $destinationPath.$fileName;
             $file = $destinationPath.$fileName;
-
         }
 
         if ($this->isValid($attributes)) {
@@ -151,9 +145,9 @@ class FaqRepository extends RepositoryAbstract implements FaqInterface, Crudable
      * @param $id
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function update($id, $attributes)
     {

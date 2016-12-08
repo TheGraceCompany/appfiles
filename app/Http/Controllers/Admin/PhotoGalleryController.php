@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use View;
+use App\Exceptions\Validation\ValidationException;
+use App\Http\Controllers\Controller;
+use App\Repositories\PhotoGallery\PhotoGalleryInterface;
+use App\Repositories\PhotoGallery\PhotoGalleryRepository as PhotoGallery;
+use App\Services\Pagination;
 use File;
 use Flash;
 use Input;
 use Redirect;
 use Response;
-use App\Services\Pagination;
-use App\Http\Controllers\Controller;
-use App\Exceptions\Validation\ValidationException;
-use App\Repositories\PhotoGallery\PhotoGalleryInterface;
-use App\Repositories\PhotoGallery\PhotoGalleryRepository as PhotoGallery;
+use View;
 
 /**
  * Class PhotoGalleryController.
@@ -52,8 +52,8 @@ class PhotoGalleryController extends Controller
     public function create()
     {
         $attributes = [
-            'title' => 'Photo Gallery Title',
-            'content' => 'Photo Gallery Content',
+            'title'        => 'Photo Gallery Title',
+            'content'      => 'Photo Gallery Content',
             'is_published' => false,
         ];
 

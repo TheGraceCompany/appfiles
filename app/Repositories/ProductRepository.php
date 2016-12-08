@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Product;
-use App\Repositories\BaseRepository;
 
 class ProductRepository extends BaseRepository
 {
@@ -53,7 +52,7 @@ class ProductRepository extends BaseRepository
         'docs_tab',
         'support_tab',
         'datalayer',
-        'tracking'
+        'tracking',
     ];
 
     // public function model()
@@ -80,6 +79,4 @@ class ProductRepository extends BaseRepository
     // {
     //     return $this->product->get()->where('lang', $this->getLang())->lists('title', 'id');
     // }
-
-
 }

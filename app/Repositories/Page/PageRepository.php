@@ -2,17 +2,14 @@
 
 namespace App\Repositories\Page;
 
-use App\Models\Page;
-use Config;
-use Response;
-use Str;
-use Event;
-use Image;
-use Intervention\Image\ImageManager;
-use File;
-use App\Repositories\RepositoryAbstract;
-use App\Repositories\CrudableInterface as CrudableInterface;
 use App\Exceptions\Validation\ValidationException;
+use App\Models\Page;
+use App\Repositories\CrudableInterface as CrudableInterface;
+use App\Repositories\RepositoryAbstract;
+use Config;
+use File;
+use Image;
+use Response;
 
 /**
  * Class PageRepository.
@@ -37,7 +34,7 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
     protected $page;
 
     protected static $rules = [
-        'title' => 'required|min:3',
+        'title'   => 'required|min:3',
         'content' => 'required|min:5', ];
 
     /**
@@ -104,7 +101,7 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
-        $result->items = array();
+        $result->items = [];
 
         $query = $this->page->orderBy('created_at', 'DESC')->where('lang', $this->getLang());
 
@@ -133,9 +130,9 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
     /**
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function create($attributes)
     {
@@ -143,60 +140,51 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
 
         //--------------------------------------------------------
 
-
         $file = null;
         if (isset($attributes['image'])) {
             $file = $attributes['image'];
         }
         if ($file) {
-
             $destinationPath = public_path().$this->imgDir;
-            $destinationThumbPath = $destinationPath . $this->thumbDir;
-            $destinationLoopPath = $destinationPath . $this->loopDir;
+            $destinationThumbPath = $destinationPath.$this->thumbDir;
+            $destinationLoopPath = $destinationPath.$this->loopDir;
 
             File::exists($destinationPath) or File::makeDirectory($destinationPath);
             File::exists($destinationThumbPath) or File::makeDirectory($destinationThumbPath);
             File::exists($destinationLoopPath) or File::makeDirectory($destinationLoopPath);
 
-
             File::delete($destinationPath.$this->page->filename);
             File::delete($destinationThumbPath.$this->page->filename);
             File::delete($destinationLoopPath.$this->page->filename);
 
-
             $destinationPath = $destinationPath;
-            $destinationThumbPath = $destinationPath . $destinationThumbPath;
-            $destinationLoopPath = $destinationPath . $destinationLoopPath;
-
-
+            $destinationThumbPath = $destinationPath.$destinationThumbPath;
+            $destinationLoopPath = $destinationPath.$destinationLoopPath;
 
             $fileName = $file->getClientOriginalName();
             $fileSize = $file->getClientSize();
             $upload_success = $file->move($destinationPath, $fileName);
             if ($upload_success) {
+                Image::make($destinationPath.$fileName)->resize(
+                    $this->width, $this->height, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationPath.$fileName);
 
                 Image::make($destinationPath.$fileName)->resize(
-                    $this->width, $this->height,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationPath.$fileName);
+                    $this->thumbWidth, $this->thumbHeight, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationThumbPath.$fileName);
 
                 Image::make($destinationPath.$fileName)->resize(
-                    $this->thumbWidth, $this->thumbHeight,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationThumbPath.$fileName);
-
-                Image::make($destinationPath.$fileName)->resize(
-                    $this->loopWidth, $this->loopHeight,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationLoopPath.$fileName);
+                    $this->loopWidth, $this->loopHeight, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationLoopPath.$fileName);
 
                 $this->page->file_name = $fileName;
                 $this->page->file_size = $fileSize;
                 $this->page->path = $this->imgDir;
             }
         }
-
-
 
         if ($this->isValid($attributes)) {
             $this->page->lang = $this->getLang();
@@ -212,9 +200,9 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
      * @param $id
      * @param $attributes
      *
-     * @return bool|mixed
-     *
      * @throws \App\Exceptions\Validation\ValidationException
+     *
+     * @return bool|mixed
      */
     public function update($id, $attributes)
     {
@@ -223,10 +211,9 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
         if (isset($attributes['image'])) {
             $file = $attributes['image'];
 
-
             $destinationPath = public_path().$this->imgDir;
-            $destinationThumbPath = $destinationPath . $this->thumbDir;
-            $destinationLoopPath = $destinationPath . $this->loopDir;
+            $destinationThumbPath = $destinationPath.$this->thumbDir;
+            $destinationLoopPath = $destinationPath.$this->loopDir;
 
             File::exists($destinationPath) or File::makeDirectory($destinationPath);
             File::exists($destinationThumbPath) or File::makeDirectory($destinationThumbPath);
@@ -245,17 +232,17 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
             $upload_success = $file->move($destinationPath, $fileName);
             if ($upload_success) {
                 Image::make($destinationPath.$fileName)->resize(
-                    $this->width, $this->height,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationPath.$fileName);
+                    $this->width, $this->height, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationPath.$fileName);
                 Image::make($destinationPath.$fileName)->resize(
-                    $this->thumbWidth, $this->thumbHeight,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationThumbPath.$fileName);
+                    $this->thumbWidth, $this->thumbHeight, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationThumbPath.$fileName);
                 Image::make($destinationPath.$fileName)->resize(
-                    $this->loopWidth, $this->loopHeight,  function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($destinationLoopPath.$fileName);
+                    $this->loopWidth, $this->loopHeight, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($destinationLoopPath.$fileName);
 
                 $this->page->file_name = $fileName;
                 $this->page->file_size = $fileSize;
@@ -296,7 +283,7 @@ class PageRepository extends RepositoryAbstract implements PageInterface, Crudab
         $page->is_published = ($page->is_published) ? false : true;
         $page->save();
 
-        return Response::json(array('result' => 'success', 'changed' => ($page->is_published) ? 1 : 0));
+        return Response::json(['result' => 'success', 'changed' => ($page->is_published) ? 1 : 0]);
     }
 
     /**

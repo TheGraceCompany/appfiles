@@ -36,12 +36,12 @@ class SettingRepository extends Validator implements SettingInterface
         $setting = json_decode($jsonData, true);
 
         if ($setting === null) {
-            $setting = array(
-                'site_title' => null,
-                'ga_code' => null,
-                'meta_keywords' => null,
+            $setting = [
+                'site_title'       => null,
+                'ga_code'          => null,
+                'meta_keywords'    => null,
                 'meta_description' => null,
-            );
+            ];
         }
 
         return $setting;

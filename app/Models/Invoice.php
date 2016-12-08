@@ -27,5 +27,4 @@ class Invoice extends Model
     {
         return $this->belongsToMany(Product::class, 'invoice_items');
     }
-
 }

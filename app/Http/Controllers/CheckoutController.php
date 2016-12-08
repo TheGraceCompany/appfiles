@@ -2,40 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App;
-use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\OptionValue;
 use App\Models\Order;
 use App\Models\OrderProduct;
-use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\UserInfo;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Sentinel;
-use Session;
 use Redirect;
-
-use Validator;
-use Input;
-
+use Sentinel;
 // use \Ecommerce\helperFunctions;
-use \Illuminate\Database\Eloquent\Collection;
+use Session;
 
-class CheckoutController extends Controller {
-
+class CheckoutController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         //
 
         if (!Session::has('shipping')) {
             return Redirect::to(getLang().'/cart')->with([
-                        'flash_message' => (isset($return['Error'])) ? $return['Error']['ErrorDescription'] : 'Fill all fields!'
+                        'flash_message' => (isset($return['Error'])) ? $return['Error']['ErrorDescription'] : 'Fill all fields!',
             ]);
         }
 
@@ -68,7 +62,6 @@ class CheckoutController extends Controller {
             return Redirect::to(getLang().'/cart');
         }
         foreach ($cart as $item) {
-
             $total += number_format(floatval(preg_replace('/[\$,]/', '', $item->product->price)) * $item->amount, 2, '.', ',');
             if ($item->options) {
                 $values = explode(',', $item->options);
@@ -82,27 +75,26 @@ class CheckoutController extends Controller {
         $discount = 0;
         if (Session::has('coupon')):
             $discount = number_format((($total * Session::get('coupon.discount')) / 100), 2, '.', ',');
-            $total = $total - $discount;
+        $total = $total - $discount;
         endif;
         $shipping_rate = (isset(Session::get('shipping')[0]['rate']) ? number_format(Session::get('shipping')[0]['rate'], 2, '.', '') : 0);
         $tax_rate = (isset(Session::get('tax')[0]['rate']) ? number_format(Session::get('tax')[0]['rate'], 2, '.', '') : 0);
-        $total+=$shipping_rate + $tax_rate;
-        
+        $total += $shipping_rate + $tax_rate;
+
         $total = number_format($total, 2, '.', ',');
         //dd(Session::get('coupon'));
         return view('frontend.shop.checkout', compact('shipping_rate', 'total', 'discount', 'sub_total', 'cart', 'billing', 'shipping', 'userInfo', 'options'));
-
     }
 
-    public function thankyou($id) {
+    public function thankyou($id)
+    {
         $orderDetails = OrderProduct::where('order_id', $id)->get();
         $order = Order::find($id);
-        $options = new Collection;
+        $options = new Collection();
         $total = 0;
 
         foreach ($orderDetails as $detail) {
             $total += number_format(floatval(preg_replace('/[\$,]/', '', $detail->product->price)) * $detail->amount, 2, '.', ',');
-
 
             if ($detail->options) {
                 $values = explode(',', $detail->options);
@@ -110,12 +102,9 @@ class CheckoutController extends Controller {
                     $options->add(OptionValue::find($value));
                 }
             }
-            
         }
 
-
         return view('frontend.shop.thankyou', compact('total', 'orderDetails', 'order', 'options'));
-
     }
 
     /**
@@ -123,59 +112,69 @@ class CheckoutController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
-
 }

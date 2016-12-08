@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use View;
-use Input;
 use App\Models\Slider;
-use Response;
-use File;
-use Image;
 use Config;
+use File;
 use Flash;
+use Image;
+use Input;
+use Response;
+use View;
 
 /**
  * Class SliderController.

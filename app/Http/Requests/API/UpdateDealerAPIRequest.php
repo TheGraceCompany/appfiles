@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API;
 
-use App\Http\Requests\API\APIRequest;
 use App\Models\Dealer;
 
 class UpdateDealerAPIRequest extends APIRequest

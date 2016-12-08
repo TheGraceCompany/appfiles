@@ -5,21 +5,21 @@ namespace Intervention\Image\Filters;
 class DemoFilter implements FilterInterface
 {
     /**
-     * Default size of filter effects
+     * Default size of filter effects.
      */
     const DEFAULT_SIZE = 10;
 
     /**
-     * Size of filter effects
+     * Size of filter effects.
      *
-     * @var integer
+     * @var int
      */
     private $size;
 
     /**
-     * Creates new instance of filter
+     * Creates new instance of filter.
      *
-     * @param integer $size
+     * @param int $size
      */
     public function __construct($size = null)
     {
@@ -27,9 +27,10 @@ class DemoFilter implements FilterInterface
     }
 
     /**
-     * Applies filter effects to given image
+     * Applies filter effects to given image.
      *
-     * @param  Intervention\Image\Image $image
+     * @param Intervention\Image\Image $image
+     *
      * @return Intervention\Image\Image
      */
     public function applyFilter(\Intervention\Image\Image $image)

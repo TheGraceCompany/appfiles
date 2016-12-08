@@ -18,4 +18,3 @@ interface ArticleInterface extends RepositoryInterface
      */
     public function getBySlug($slug);
 }
-

@@ -27,15 +27,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'before' => \App\Http\Middleware\BeforeMiddleware::class,
-        'sentinel.auth' => \App\Http\Middleware\SentinelAuth::class,
-        'sentinel.permission' => \App\Http\Middleware\SentinelPermission::class,
-        'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'before'               => \App\Http\Middleware\BeforeMiddleware::class,
+        'sentinel.auth'        => \App\Http\Middleware\SentinelAuth::class,
+        'sentinel.permission'  => \App\Http\Middleware\SentinelPermission::class,
+        'localize'             => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
-        'isAdmin' => \App\Http\Middleware\isAdmin::class,
+        'isAdmin'              => \App\Http\Middleware\isAdmin::class,
         // 'clearcache' => \App\Http\Middleware\ClearCache::class,
         // 'NavCart' => \App\Http\Middleware\NavCart::class,
-        'SentinelUser' => \App\Http\Middleware\SentinelUser::class,
+        'SentinelUser'  => \App\Http\Middleware\SentinelUser::class,
         'SentinelAdmin' => \App\Http\Middleware\SentinelAdmin::class,
     ];
 }

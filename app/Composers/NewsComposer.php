@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use News;
 use App\Repositories\News\NewsInterface;
+use News;
 
 /**
  * Class MenuComposer.
@@ -19,6 +19,7 @@ class NewsComposer
 
     /**
      * NewsComposer constructor.
+     *
      * @param NewsInterface $news
      */
     public function __construct(NewsInterface $news)

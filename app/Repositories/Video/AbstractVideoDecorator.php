@@ -51,10 +51,12 @@ abstract class AbstractVideoDecorator implements VideoInterface
     }
 
     /**
-     * Paginator
-     * @param int $page
-     * @param int $limit
+     * Paginator.
+     *
+     * @param int  $page
+     * @param int  $limit
      * @param bool $all
+     *
      * @return mixed
      */
     public function paginate($page = 1, $limit = 10, $all = false)

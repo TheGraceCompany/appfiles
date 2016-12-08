@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Services\Pagination;
 use App\Repositories\News\NewsInterface;
 use App\Repositories\News\NewsRepository as News;
+use App\Services\Pagination;
+use Illuminate\Http\Request;
 
 /**
  * Class NewsController.
@@ -33,7 +32,9 @@ class NewsController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -46,6 +47,7 @@ class NewsController extends Controller
 
     /**
      * @param $slug
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($slug)

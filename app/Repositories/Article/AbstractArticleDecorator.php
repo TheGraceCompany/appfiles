@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Article;
 
 /**
@@ -23,6 +24,7 @@ abstract class AbstractArticleDecorator implements ArticleInterface
 
     /**
      * @param  $id
+     *
      * @return mixed
      */
     public function find($id)
@@ -32,6 +34,7 @@ abstract class AbstractArticleDecorator implements ArticleInterface
 
     /**
      * @param  $slug
+     *
      * @return mixed
      */
     public function getBySlug($slug)
@@ -48,8 +51,9 @@ abstract class AbstractArticleDecorator implements ArticleInterface
     }
 
     /**
-     * @param  null    $perPage
-     * @param  bool    $all
+     * @param null $perPage
+     * @param bool $all
+     *
      * @return mixed
      */
     public function paginate($page = 1, $limit = 10, $all = false)

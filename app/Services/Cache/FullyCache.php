@@ -4,7 +4,6 @@ namespace App\Services\Cache;
 
 use Config;
 use Illuminate\Cache\CacheManager;
-use App\Services\Cache\CacheInterface;
 
 /**
  * Class FullyCache.

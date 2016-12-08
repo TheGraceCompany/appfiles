@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Redirect;
-use View;
+use App\Models\Role;
+use Flash;
 use Illuminate\Support\Str;
 use Input;
-use Flash;
+use Redirect;
 use Validator;
-use App\Models\Role;
+use View;
 
 /**
  * Class RoleController.
@@ -47,21 +47,21 @@ class RoleController extends Controller
      */
     public function store()
     {
-        $permissions = array();
+        $permissions = [];
 
         foreach (Input::get('permissions') as $k => $v) {
             $permissions[$k] = ($v == '1') ? true : false;
         }
 
-        $formData = array(
-            'slug' => Str::slug(Input::get('name')),
-            'name' => Input::get('name'),
+        $formData = [
+            'slug'        => Str::slug(Input::get('name')),
+            'name'        => Input::get('name'),
             'permissions' => $permissions,
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'name' => 'required|min:3',
-        );
+        ];
 
         $validation = Validator::make($formData, $rules);
 
@@ -112,17 +112,17 @@ class RoleController extends Controller
      */
     public function update($id)
     {
-        $permissions = array();
+        $permissions = [];
 
         foreach (Input::get('permissions') as $k => $v) {
             $permissions[$k] = ($v == '1') ? true : false;
         }
 
-        $formData = array(
-            'slug' => Str::slug(Input::get('name')),
-            'name' => Input::get('name'),
+        $formData = [
+            'slug'        => Str::slug(Input::get('name')),
+            'name'        => Input::get('name'),
             'permissions' => $permissions,
-        );
+        ];
 
         $role = Role::find($id);
         $role->slug = $formData['slug'];

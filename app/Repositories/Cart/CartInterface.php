@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Repositories\Cart;
+
 use App\Models\Cart;
+use App\Repositories\RepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Sentinel;
 use Session;
-use \Illuminate\Database\Eloquent\Collection;
-use App\Repositories\RepositoryInterface;
 
 /**
  * Interface CartInterface.
@@ -21,17 +22,15 @@ interface CartInterface extends RepositoryInterface
      */
     public function getBySlug($slug, $isPublished = false);
 
-
-public static function getCartInfo(&$sections,&$cart,&$total)
+    public static function getCartInfo(&$sections, &$cart, &$total)
     {
-
         if (Sentinel::check()) {
             $cart = Auth::user()->cart;
         } else {
-            $cart = new Collection;
+            $cart = new Collection();
             if (Session::has('cart')) {
                 foreach (Session::get('cart') as $item) {
-                    $elem = new Cart;
+                    $elem = new Cart();
                     $elem->product_id = $item['product_id'];
                     $elem->amount = $item['qty'];
                     if (isset($item['options'])) {
@@ -43,9 +42,7 @@ public static function getCartInfo(&$sections,&$cart,&$total)
         }
         $total = 0;
         foreach ($cart as $item) {
-            $total += $item->product->price*$item->amount;
+            $total += $item->product->price * $item->amount;
         }
     }
-
-
 }

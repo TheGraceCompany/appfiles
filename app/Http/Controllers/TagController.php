@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Tag\TagInterface;
 use App\Repositories\Tag\TagRepository as Tag;
-use App\Repositories\Category\CategoryInterface;
 
 /**
  * Class TagController.
@@ -24,6 +24,7 @@ class TagController extends Controller
 
     /**
      * @param $slug
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($slug)

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\Pagination;
 use App\Repositories\Video\VideoInterface;
 use App\Repositories\Video\VideoRepository as Video;
+use App\Services\Pagination;
+use Illuminate\Http\Request;
 
 /**
  * Class VideoController.
@@ -15,19 +15,22 @@ use App\Repositories\Video\VideoRepository as Video;
 class VideoController extends Controller
 {
     /**
-     * video repository
+     * video repository.
+     *
      * @var
      */
     protected $video;
 
     /**
-     * per page
+     * per page.
+     *
      * @var
      */
     protected $perPage;
 
     /**
      * VideoController constructor.
+     *
      * @param VideoInterface $video
      */
     public function __construct(VideoInterface $video)
@@ -37,9 +40,10 @@ class VideoController extends Controller
     }
 
     /**
-     * Display a listing of the resource
+     * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -51,17 +55,19 @@ class VideoController extends Controller
     }
 
     /**
-     * Display a resource by slug
+     * Display a resource by slug.
      *
      * @param $slug
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($slug)
     {
         $video = $this->video->getBySlug($slug);
 
-        if($video == null)
+        if ($video == null) {
             return Response::view('errors.missing', [], 404);
+        }
 
         return view('frontend.video.show', compact('video'));
     }

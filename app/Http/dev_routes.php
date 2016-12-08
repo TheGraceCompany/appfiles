@@ -9,7 +9,7 @@
 
 Route::get('/r', function () {
     /**
-     * undocumented function
+     * undocumented function.
      *
      * @author Phillip Madsen <contact@affordableprogrammer.com>
      *
@@ -17,7 +17,7 @@ Route::get('/r', function () {
      */
     function philsroutes()
     {
-        $i               = 0;
+        $i = 0;
         $routeCollection = Route::getRoutes();
         echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">';
         echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.css">';
@@ -35,7 +35,7 @@ Route::get('/r', function () {
         echo '<thead>';
 
         foreach ($routeCollection as $value) {
-            $number    = $i++;
+            $number = $i++;
             $secretrow = 'secretrow';
             echo '<tr data-toggle="collapse" data-target="#'.$secretrow.$number.'" class="accordion-toggle">';
             echo '<td><button type="button" class="btn btn-info btn-md"><i class="glyphicon glyphicon-plus"></i></button></td>';
@@ -67,7 +67,7 @@ Route::get('/r', function () {
         echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>';
     }
 
-    /**
+    /*
      * @noinspection PhpVoidFunctionResultUsedInspection
      */
     return philsroutes();
@@ -106,16 +106,19 @@ Route::get('/rr', function () {
         echo '</table></div></div>';
         echo '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>';
     }
+
     return philsroutes();
 });
 
 Route::get('migrate', function () {
     \Artisan::call('migrate:refresh');
+
     return '<pre>'.\Artisan::output().'</pre>';
 });
 
 Route::get('routes', function () {
     \Artisan::call('route:list');
+
     return '<pre>'.\Artisan::output().'</pre>';
 });
 
@@ -126,7 +129,7 @@ Route::get('/paths', function () {
         foreach (Route::getRoutes() as $route) {
             $compiled = $route->getCompiled();
             if (!is_null($compiled)) {
-                /**
+                /*
                  * @noinspection ForgottenDebugOutputInspection
                  */
                 var_dump($compiled->getStaticPrefix());
@@ -134,7 +137,7 @@ Route::get('/paths', function () {
         }
     }
 
-    /**
+    /*
      * @noinspection PhpVoidFunctionResultUsedInspection
      */
     return philspaths();

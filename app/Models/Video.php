@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Cviebrock\EloquentSluggable\SluggableInterface;
 use App\Interfaces\ModelInterface as ModelInterface;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Video.
@@ -19,10 +19,10 @@ class Video extends Model implements ModelInterface, SluggableInterface
     public $table = 'videos';
     public $fillable = ['title', 'video_id', 'type'];
 
-    protected $sluggable = array(
+    protected $sluggable = [
         'build_from' => 'title',
-        'save_to' => 'slug',
-    );
+        'save_to'    => 'slug',
+    ];
 
     public function getDetailsAttribute()
     {

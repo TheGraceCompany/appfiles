@@ -65,7 +65,7 @@ function langURL($url = null)
  *
  * @return mixed
  */
-function langRoute($route, $parameters = array())
+function langRoute($route, $parameters = [])
 {
     return URL::route(getLang().'.'.$route, $parameters);
 }
@@ -89,7 +89,3 @@ function FlashAlert($title = null, $message = null)
 
     return $flash->info($title, $message);
 }
-
-
-
-

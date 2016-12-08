@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Cviebrock\EloquentSluggable\SluggableInterface;
 use App\Interfaces\ModelInterface as ModelInterface;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
 /**
  * Class News.
@@ -19,10 +19,10 @@ class News extends BaseModel implements ModelInterface, SluggableInterface
     public $fillable = ['title', 'content', 'datetime', 'is_published'];
     protected $appends = ['url'];
 
-    protected $sluggable = array(
+    protected $sluggable = [
         'build_from' => 'title',
-        'save_to' => 'slug',
-    );
+        'save_to'    => 'slug',
+    ];
 
     public function setUrlAttribute($value)
     {

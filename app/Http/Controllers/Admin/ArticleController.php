@@ -1,17 +1,17 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
 use App\Models\User;
 use App\Repositories\Article\ArticleInterface;
 use App\Repositories\Article\ArticleRepository as Article;
 use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository as Category;
 use App\Services\Pagination;
-use Flash;
 use DB;
+use Flash;
 use Input;
 use Response;
 use View;
@@ -41,16 +41,16 @@ class ArticleController extends Controller
     protected $perPage;
 
     /**
-     * @param ArticleInterface $article
+     * @param ArticleInterface  $article
      * @param CategoryInterface $category
-     * @param User $users
+     * @param User              $users
      */
     public function __construct(ArticleInterface $article, CategoryInterface $category, User $users)
     {
         View::share('active', 'blog');
-        $this->article  = $article;
+        $this->article = $article;
         $this->category = $category;
-        $this->user     = $users;
+        $this->user = $users;
 
         $this->perPage = config('grace.modules.article.per_page');
     }
@@ -103,7 +103,8 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int        $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -116,29 +117,31 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int        $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
         $article = $this->article->find($id);
-        $tags    = null;
+        $tags = null;
 
         foreach ($article->tags as $tag) {
             $tags .= ','.$tag->name;
         }
 
-        $tags       = substr($tags, 1);
+        $tags = substr($tags, 1);
         $categories = $this->category->lists();
         $users = User::select(DB::raw('concat(first_name," ",last_name) as full_name,id'))->lists('full_name', 'id');
 
-        return view('backend.article.edit', compact('article', 'tags', 'categories','users'));
+        return view('backend.article.edit', compact('article', 'tags', 'categories', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int        $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update($id)
@@ -156,7 +159,8 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int        $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -179,6 +183,7 @@ class ArticleController extends Controller
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function togglePublish($id)

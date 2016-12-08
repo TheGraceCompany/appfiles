@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Alert;
-use App\Repositories\BaseRepository;
 
 class AlertRepository extends BaseRepository
 {
@@ -15,11 +14,11 @@ class AlertRepository extends BaseRepository
         'alert_message',
         'alerticon',
         'alertstyle',
-        'alerttype'
+        'alerttype',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {
