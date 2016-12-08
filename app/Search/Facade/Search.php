@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Search\Facade;
 
 use Illuminate\Support\Facades\Facade;

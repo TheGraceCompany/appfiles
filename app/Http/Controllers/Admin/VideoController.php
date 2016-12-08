@@ -1,18 +1,22 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
-use View;
-use Flash;
-use Input;
-use Config;
-use Response;
-use VideoApi;
-use App\Services\Pagination;
+use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Video\VideoInterface;
-use App\Exceptions\Validation\ValidationException;
 use App\Repositories\Video\VideoRepository as Video;
+use App\Services\Pagination;
+use Config;
+use Flash;
+use Input;
+use Response;
+use VideoApi;
+use View;
 
 /**
  * Class VideoController.
@@ -60,14 +64,12 @@ class VideoController extends Controller
      */
     public function store()
     {
-        try
-        {
+        try {
             $this->video->create(Input::all());
             Flash::message('Video was successfully added');
 
             return langRedirectRoute('admin.video.index');
-        } catch(ValidationException $e)
-        {
+        } catch (ValidationException $e) {
             return langRedirectRoute('admin.video.create')->withInput()->withErrors($e->getErrors());
         }
     }
@@ -109,14 +111,12 @@ class VideoController extends Controller
      */
     public function update($id)
     {
-        try
-        {
+        try {
             $this->video->update($id, Input::all());
             Flash::message('Video was successfully updated');
 
             return langRedirectRoute('admin.video.index');
-        } catch(ValidationException $e)
-        {
+        } catch (ValidationException $e) {
             return langRedirectRoute('admin.video.edit')->withInput()->withErrors($e->getErrors());
         }
     }
@@ -153,12 +153,9 @@ class VideoController extends Controller
         $videoId = Input::get('video_id');
         $type = Input::get('type');
 
-        if($type == 'youtube')
-        {
+        if ($type == 'youtube') {
             $response = VideoApi::setType($type)->setKey(Config::get('grace.youtube_api_key'))->getVideoDetail($videoId);
-        }
-        else
-        {
+        } else {
             $response = VideoApi::setType($type)->getVideoDetail($videoId);
         }
 

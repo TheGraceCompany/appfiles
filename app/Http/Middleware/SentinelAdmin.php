@@ -1,26 +1,32 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
-use Sentinel;
 use Redirect;
+use Sentinel;
 
 class SentinelAdmin
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if(!Sentinel::check())
+        if (!Sentinel::check()) {
             return Redirect::to('admin/signin')->with('info', 'You must be logged in!');
-        elseif(!Sentinel::inRole('admin'))
+        } elseif (!Sentinel::inRole('admin')) {
             return Redirect::to('my-account');
+        }
 
         return $next($request);
     }

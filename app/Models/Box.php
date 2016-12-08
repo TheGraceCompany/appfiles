@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Eloquent as Model;
@@ -10,9 +15,7 @@ class Box extends Model
 
     public $table = 'boxes';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'nickname',
@@ -23,7 +26,7 @@ class Box extends Model
         'inner_width',
         'outer_height',
         'box_weight',
-        'max_weight'
+        'max_weight',
     ];
 
     /**
@@ -32,32 +35,32 @@ class Box extends Model
      * @var array
      */
     protected $casts = [
-        'nickname' => 'string',
+        'nickname'     => 'string',
         'outer_length' => 'string',
-        'outer_width' => 'string',
+        'outer_width'  => 'string',
         'inner_height' => 'string',
         'inner_length' => 'string',
-        'inner_width' => 'string',
+        'inner_width'  => 'string',
         'outer_height' => 'string',
-        'box_weight' => 'string',
-        'max_weight' => 'string'
+        'box_weight'   => 'string',
+        'max_weight'   => 'string',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */
     public static $rules = [
-        'nickname' => 'required',
+        'nickname'     => 'required',
         'outer_length' => 'required',
-        'outer_width' => 'required',
+        'outer_width'  => 'required',
         'inner_height' => 'required',
         'inner_length' => 'required',
-        'inner_width' => 'required',
+        'inner_width'  => 'required',
         'outer_height' => 'required',
-        'box_weight' => 'required',
-        'max_weight' => 'required'
+        'box_weight'   => 'required',
+        'max_weight'   => 'required',
     ];
 
     /**

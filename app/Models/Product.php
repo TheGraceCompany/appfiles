@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
@@ -166,13 +171,13 @@ class Product extends Model implements SluggableInterface
      * @var array
      */
     protected $fillable = [
-        'id', 'slug', 'ispromo', 'is_published', 'name', 'subtitle', 'details', 'description', 'status', 'office_status', 'availability', 'thumbnail', 'thumbnail2', 'thumbnail3', 'photo_album', 'pubished_at', 'video_url', 'lang', 'manufacturer', 'category_id', 'hasWarranty', 'isDev', 'features_heading', 'price_heading', 'review_heading', 'additional_heading', 'waranty_heading', 'support_heading', 'docs_heading', 'meta_title', 'meta_keywords', 'meta_description', 'facebook_title', 'google_plus_title', 'twitter_title', 'price', 'quantity', 'model', 'sku', 'upc', 'tracking', 'datalayer', 'filter_class'
+        'id', 'slug', 'ispromo', 'is_published', 'name', 'subtitle', 'details', 'description', 'status', 'office_status', 'availability', 'thumbnail', 'thumbnail2', 'thumbnail3', 'photo_album', 'pubished_at', 'video_url', 'lang', 'manufacturer', 'category_id', 'hasWarranty', 'isDev', 'features_heading', 'price_heading', 'review_heading', 'additional_heading', 'waranty_heading', 'support_heading', 'docs_heading', 'meta_title', 'meta_keywords', 'meta_description', 'facebook_title', 'google_plus_title', 'twitter_title', 'price', 'quantity', 'model', 'sku', 'upc', 'tracking', 'datalayer', 'filter_class',
     ];
 
-	public function getRouteKeyName()
-	{
-		return 'slug';
-	}
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     /**
      * @var array
@@ -197,11 +202,11 @@ class Product extends Model implements SluggableInterface
         'video_url'          => 'string',
         'pubished_at'        => 'date',
         'lang'               => 'string',
-        'alerttype' => 'string',
-        'alerticon' => 'string',
-        'alertstyle' => 'string',
-        'alert_title' => 'string',
-        'alert_message' => 'text',
+        'alerttype'          => 'string',
+        'alerticon'          => 'string',
+        'alertstyle'         => 'string',
+        'alert_title'        => 'string',
+        'alert_message'      => 'text',
         'manufacturer'       => 'string',
         'category_id'        => 'integer',
         'features_heading'   => 'string',
@@ -224,10 +229,9 @@ class Product extends Model implements SluggableInterface
         'upc'                => 'string',
         'tracking'           => 'string',
         'datalayer'          => 'string',
-        'filter_class'       => 'string'
+        'filter_class'       => 'string',
 
     ];
-
 
     public function getPriceAttribute($price)
     {
@@ -236,7 +240,7 @@ class Product extends Model implements SluggableInterface
 
     /**
      * Returns the formatted subtotal.
-     * Subtotal is price for whole CartItem without TAX
+     * Subtotal is price for whole CartItem without TAX.
      *
      * @return string
      */
@@ -247,7 +251,7 @@ class Product extends Model implements SluggableInterface
 
     /**
      * Returns the formatted total.
-     * Total is price for whole CartItem with TAX
+     * Total is price for whole CartItem with TAX.
      *
      * @return string
      */
@@ -270,11 +274,10 @@ class Product extends Model implements SluggableInterface
         $this->quantity = $quantity;
     }
 
-	public function getProductCategoryAttribute()
-	{
-		return $this->category->lists('id');
-	}
-
+    public function getProductCategoryAttribute()
+    {
+        return $this->category->lists('id');
+    }
 
     /**
      * @var array
@@ -282,7 +285,7 @@ class Product extends Model implements SluggableInterface
     public static $rules = [
 
         'name' => 'required',
-        'slug' => 'required'
+        'slug' => 'required',
     ];
 
     /**
@@ -290,13 +293,13 @@ class Product extends Model implements SluggableInterface
      */
     protected $sluggable = [
         'build_from' => 'name',
-        'save_to'    => 'slug'
+        'save_to'    => 'slug',
     ];
-
 
     /**
      * @method categories
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()
@@ -307,6 +310,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method orders
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function orders()
@@ -317,6 +321,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method carts
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function carts()
@@ -327,6 +332,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method photos
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function photos()
@@ -337,6 +343,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method options
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function options()
@@ -344,11 +351,12 @@ class Product extends Model implements SluggableInterface
         return $this->hasMany(Option::class);
     }
 
-    /**
-     * @method category
-     * @public
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
+     /**
+      * @method category
+      * @public
+      *
+      * @return \Illuminate\Database\Eloquent\Relations\HasOne
+      */
     // public function category()
     // {
     //     return $this->hasOne(Category::class, 'id', 'category_id', 'title');
@@ -356,7 +364,7 @@ class Product extends Model implements SluggableInterface
 
      public function category()
      {
-         $categories = $this->hasOne(Category::class, 'id', 'category_id', 'title') ->select(['id', 'title']);
+         $categories = $this->hasOne(Category::class, 'id', 'category_id', 'title')->select(['id', 'title']);
 
          return $categories;
      }
@@ -364,6 +372,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method productVariants
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function productVariants()
@@ -371,7 +380,7 @@ class Product extends Model implements SluggableInterface
         return $this->hasMany(ProductVariant::class);
     }
 
-        public function alerts()
+    public function alerts()
     {
         return $this->hasMany(Alert::class);
     }
@@ -379,6 +388,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method productRequirements
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function productRequirements()
@@ -389,6 +399,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method productFeatures
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\RelationsHasMany
      */
     public function productFeatures()
@@ -399,6 +410,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method variants
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function variants()
@@ -409,6 +421,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method requirements
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requirements()
@@ -419,6 +432,7 @@ class Product extends Model implements SluggableInterface
     /**
      * @method features
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyP
      */
     public function features()
@@ -437,12 +451,11 @@ class Product extends Model implements SluggableInterface
     /**
      * @method model
      * @public
+     *
      * @return
      */
     public function model()
     {
-        return Product::class;
+        return self::class;
     }
-
-
 }

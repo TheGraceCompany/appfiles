@@ -1,13 +1,17 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Filters;
 
-use Intervention\Image\Image;
 use Intervention\Image\Filters\FilterInterface;
+use Intervention\Image\Image;
 
 class ProductFilter implements FilterInterface
 {
-        // DIMENSIONS:
+    // DIMENSIONS:
         // 720 x 960 pixels
         // 413 x 551 pixels
         // 100 x 75 pixels  // gallery

@@ -1,10 +1,14 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
-use Response;
-use App\Models\News;
 use App\Feeder\Facade\Feeder;
+use App\Models\News;
+use Response;
 
 /**
  * Class RssController.
@@ -17,12 +21,13 @@ class RssController extends Controller
     {
         $items = News::orderBy('created_at', 'desc')->take(10)->get();
 
-        $data = array();
+        $data = [];
         foreach ($items as $k => $v) {
-            $data[] = array('title' => $v->title, 'description' => $v->content, 'link' => url($v->url));
+            $data[] = ['title' => $v->title, 'description' => $v->content, 'link' => url($v->url)];
         }
 
         $feed = Feeder::feed($data);
-        return Response::make($feed, 200, array('Content-Type' => 'text/xml'));
+
+        return Response::make($feed, 200, ['Content-Type' => 'text/xml']);
     }
 }

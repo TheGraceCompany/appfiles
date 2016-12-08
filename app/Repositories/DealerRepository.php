@@ -1,9 +1,12 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories;
 
 use App\Models\Dealer;
-use App\Repositories\BaseRepository;
 
 class DealerRepository extends BaseRepository
 {
@@ -24,11 +27,11 @@ class DealerRepository extends BaseRepository
         'company_phone',
         'toll_free',
         'public_email',
-        'support_email'
+        'support_email',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

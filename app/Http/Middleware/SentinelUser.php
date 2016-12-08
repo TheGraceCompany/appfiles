@@ -1,18 +1,23 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
-use Sentinel;
 use Redirect;
+use Sentinel;
 
 class SentinelUser
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -24,6 +29,7 @@ class SentinelUser
                 return Redirect::route('signin');
             }
         }
+
         return $next($request);
     }
 }

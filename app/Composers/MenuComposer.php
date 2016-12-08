@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Composers;
 
 use App\Repositories\Menu\MenuInterface;
@@ -22,7 +27,6 @@ class MenuComposer
     public function __construct(MenuInterface $menu)
     {
         $this->menu = $menu;
-
     }
 
     /**

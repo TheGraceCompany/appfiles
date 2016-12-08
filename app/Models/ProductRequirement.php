@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +23,7 @@ class ProductRequirement extends Model
     /**
      * @method product
      * @public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product()

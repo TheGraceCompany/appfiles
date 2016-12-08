@@ -1,16 +1,20 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Middleware;
 
-use Closure;
 use Artisan;
+use Closure;
 
 class ClearCache
 {
-	public function handle($request, Closure $next)
-	{
-		Artisan::call('view:clear');
+    public function handle($request, Closure $next)
+    {
+        Artisan::call('view:clear');
 
-		return $next($request);
-	}
+        return $next($request);
+    }
 }

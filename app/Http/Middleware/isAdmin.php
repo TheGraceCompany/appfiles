@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -10,25 +14,21 @@ class isAdmin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (!Sentinel::getUser()->inRole('Admin'))
-        {
-            if ($request->ajax())
-            {
+        if (!Sentinel::getUser()->inRole('Admin')) {
+            if ($request->ajax()) {
                 return response('Unauthorized.', 401);
-            }
-            else
-            {
+            } else {
                 return back()->withInput()->withErrors(trans('admin.login'));
             }
         }
 
         return $next($request);
-
     }
 }

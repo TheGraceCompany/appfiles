@@ -1,9 +1,12 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories;
 
 use App\Models\Userinfo;
-use App\Repositories\BaseRepository;
 
 class UserinfoRepository extends BaseRepository
 {
@@ -32,11 +35,11 @@ class UserinfoRepository extends BaseRepository
         'linked_in_url',
         'google_plus_url',
         'slug',
-        'display_name'
+        'display_name',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

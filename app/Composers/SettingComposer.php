@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Composers;
 
 use App\Models\Setting;

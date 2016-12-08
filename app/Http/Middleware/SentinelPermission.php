@@ -1,11 +1,15 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
-use Sentinel;
-use Redirect;
 use Flash;
+use Redirect;
+use Sentinel;
 
 class SentinelPermission
 {

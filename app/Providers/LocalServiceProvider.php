@@ -1,12 +1,8 @@
 <?php
 
 /*
-| file: app/Providers/LocalServiceProvider.php
-| to load composer require-dev packages only when in local dev env
-| this SP goes in app/Providers/ as usual and then
-| add this to providers array in config/app.php:
-| App\Providers\LocalServiceProvider::class
-*/
+ * @author Phillip Madsen
+ */
 
 namespace App\Providers;
 
@@ -14,16 +10,15 @@ use Illuminate\Support\ServiceProvider;
 
 class LocalServiceProvider extends ServiceProvider
 {
-
     // add any local only servive providers here:
     protected $providers = [
     \Barryvdh\Debugbar\ServiceProvider::class,
-	\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+    \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ];
 
     // and local only aliases here:
     protected $aliases = [
-        'Debugbar' => 'Barryvdh\Debugbar\Facade'
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
     ];
 
     /**
@@ -56,6 +51,5 @@ class LocalServiceProvider extends ServiceProvider
                 }
             }
         }
-
     }
 }

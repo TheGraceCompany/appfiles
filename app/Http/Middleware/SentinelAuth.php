@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -29,8 +33,6 @@ class SentinelAuth
                 return redirect()->guest(route('admin.login'));
             }
         }
-
-
 
         return $next($request);
     }

@@ -1,17 +1,21 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use View;
-use Validator;
-use Redirect;
-use Input;
 use App\Models\Menu;
-use URL;
 use Exception;
-use Response;
 use Flash;
+use Input;
+use Redirect;
+use Response;
+use URL;
+use Validator;
+use View;
 
 /**
  * Class MenuController.
@@ -70,10 +74,10 @@ class MenuController extends Controller
         $host = $_SERVER['SERVER_NAME'];
         $urlInfo = parse_url($formData['url']);
 
-        $rules = array(
+        $rules = [
             'title' => 'required',
-            'url' => 'required',
-        );
+            'url'   => 'required',
+        ];
 
         $validation = Validator::make($formData, $rules);
 
@@ -146,10 +150,10 @@ class MenuController extends Controller
         $host = $_SERVER['SERVER_NAME'];
         $urlInfo = parse_url($formData['url']);
 
-        $rules = array(
+        $rules = [
             'title' => 'required',
-            'url' => 'required',
-        );
+            'url'   => 'required',
+        ];
 
         $validation = Validator::make($formData, $rules);
 
@@ -209,7 +213,7 @@ class MenuController extends Controller
     {
         $this->menu->changeParentById($this->menu->parseJsonArray(json_decode(Input::get('json'), true)));
 
-        return Response::json(array('result' => 'success'));
+        return Response::json(['result' => 'success']);
     }
 
     public function togglePublish($id)
@@ -218,6 +222,6 @@ class MenuController extends Controller
         $this->menu->is_published = ($this->menu->is_published) ? false : true;
         $this->menu->save();
 
-        return Response::json(array('result' => 'success', 'changed' => ($this->menu->is_published) ? 1 : 0));
+        return Response::json(['result' => 'success', 'changed' => ($this->menu->is_published) ? 1 : 0]);
     }
 }

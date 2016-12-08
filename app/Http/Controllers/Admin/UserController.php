@@ -1,249 +1,260 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
-use View;
-use Input;
-use Flash;
-use Redirect;
-use Sentinel;
-use File;
-use Validator;
+use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\UserInfo;
-use App\Models\Role;
+use File;
+use Flash;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Cartalyst\Sentinel\Users\EloquentUser;
+use Input;
+use Redirect;
+use Sentinel;
+use Validator;
+use View;
 
 /**
  * Class UserController.
+ *
  * @author Phillip Madsen <contact@affordableprogrammer.com>
  */
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $users = User::orderBy('created_at', 'DESC')->paginate(10);
 
-	/**
-	 * Display a listing of the resource.
-	 * @return Response
-	 */
-	public function index()
-	{
-		$users = User::orderBy('created_at', 'DESC')->paginate(10);
+        if ($users) {
+            //Get User Roles
+            foreach ($users as &$user) {
+                $userRoles = $user->getRoles()->lists('name', 'id')->toArray();
+                if (count($userRoles) > 0) {
+                    $user['roles'] = implode(', ', $userRoles);
+                    $user->roles = implode(',<br/>', $userRoles);
+                }
+            }
+        }
 
-		if($users){
-			//Get User Roles
-			foreach($users as &$user){
-				$userRoles = $user->getRoles()->lists('name', 'id')->toArray();
-				if(count($userRoles) > 0){
-					$user['roles'] = implode(', ', $userRoles);
-					$user->roles = implode(',<br/>', $userRoles);
-				}
-			}
-		}
+        return view('backend.user.index', compact('users'))->with('active', 'user');
+    }
 
-		return view('backend.user.index', compact('users'))->with('active', 'user');
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $roles = Role::lists('name', 'id');
 
-	}
+        return view('backend.user.create', compact('roles'));
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * @return Response
-	 */
-	public function create()
-	{
-		$roles = Role::lists('name', 'id');
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            $user = User::create(Input::all());
 
-		return view('backend.user.create', compact('roles'));
-	}
+            UserInfo::create(array_merge(Input::get('userInfo'), ['user_id' => $user->id]));
+            if ($request->hasFile('userInfo')) {
+                $dest = 'uploads/users/'.$user->username.'/photos/';
+                File::delete(public_path().$user->userInfo->photo);
+                $name = str_random(11).'_'.$request->file('userInfo')['photo']->getClientOriginalName();
+                $request->file('userInfo')['photo']->move($dest, $name);
 
-	/**
-	 * Store a newly created resource in storage.
-	 * @return Response
-	 */
-	public function store(Request $request)
-	{
-		try{
+                $user->userInfo->where('user_id', $user->id)->update(['photo' => '/'.$dest.$name]);
+            }
+            $oldRoles = $user->getRoles()->lists('name', 'id')->toArray();
 
-			$user = User::create(Input::all());
+            foreach ($oldRoles as $id => $role) {
+                $roleModel = Sentinel::findRoleByName($role);
+                $roleModel->users()->detach($user);
+            }
 
-			UserInfo::create(array_merge(Input::get('userInfo'), ['user_id' => $user->id]));
-			if($request->hasFile('userInfo')){
-				$dest = 'uploads/users/' . $user->username . "/photos/";
-				File::delete(public_path() . $user->userInfo->photo);
-				$name = str_random(11) . "_" . $request->file('userInfo')['photo']->getClientOriginalName();
-				$request->file('userInfo')['photo']->move($dest, $name);
+            if (Input::get('roles')) {
+                foreach (Input::get('roles') as $role => $id) {
+                    $role = Sentinel::findRoleByName($role);
+                    $role->users()->attach($user);
+                }
+            }
+            Flash::message('User was successfully updated');
 
-				$user->userInfo->where('user_id', $user->id)->update(['photo' => '/' . $dest . $name]);
-			}
-			$oldRoles = $user->getRoles()->lists('name', 'id')->toArray();
+            return Redirect::to('admin/user/'.$user->id.'/edit#panel_user_locations');
+        } catch (ValidationException $e) {
+            return langRedirectRoute('admin.user.edit')->withInput()->withErrors($e->getErrors());
+        }
+    }
 
-			foreach($oldRoles as $id => $role){
-				$roleModel = Sentinel::findRoleByName($role);
-				$roleModel->users()->detach($user);
-			}
+    public function storee(Request $request)
+    {
+        $formData = [
+            'first_name'       => $request->get('first_name'),
+            'last_name'        => $request->get('last_name'),
+            'username'         => $request->get('first_name').' '.$request->get('last_name'),
+            'slug'             => str_slug(($request->get('first_name').' '.$request->get('last_name')), '-'),
+            'email'            => $request->get('email'),
+            'password'         => $request->get('password'),
+            'confirm-password' => $request->get('confirm_password'),
+            'roles'            => $request->get('roles'),
+            'isAdmin'          => $request->get('isAdmin'),
+            'uuid'             => \Uuid::generate(3, $request->get('first_name').$request->get('last_name'), Uuid::NS_DNS),
+        ];
 
-			if(Input::get('roles')){
-				foreach(Input::get('roles') as $role => $id){
-					$role = Sentinel::findRoleByName($role);
-					$role->users()->attach($user);
-				}
-			}
-			Flash::message('User was successfully updated');
+        $rules = [
+            'first_name'       => 'required|min:3',
+            'last_name'        => 'required|min:3',
+            'email'            => 'required|email|unique:users,email',
+            'password'         => 'required|min:4',
+            'confirm-password' => 'required|same:password',
+        ];
 
-			return Redirect::to('admin/user/' . $user->id . '/edit#panel_user_locations');
-		}catch(ValidationException $e){
-			return langRedirectRoute('admin.user.edit')->withInput()->withErrors($e->getErrors());
-		}
-	}
+        $validation = Validator::make($formData, $rules);
 
-	public function storee(Request $request)
-	{
-		$formData = [
-			'first_name' => $request->get('first_name'),
-			'last_name' => $request->get('last_name'),
-			'username' => $request->get('first_name') . " " . $request->get('last_name'),
-			'slug' => str_slug(($request->get('first_name') . " " . $request->get('last_name')), '-'),
-			'email' => $request->get('email'),
-			'password' => $request->get('password'),
-			'confirm-password' => $request->get('confirm_password'),
-			'roles' => $request->get('roles'),
-			'isAdmin' => $request->get('isAdmin'),
-			'uuid' => \Uuid::generate(3, $request->get('first_name') . $request->get('last_name'), Uuid::NS_DNS)
-		];
+        if ($validation->fails()) {
+            return Redirect::action('Admin\UserController@create')->withErrors($validation)->withInput();
+        }
 
-		$rules = [
-			'first_name' => 'required|min:3',
-			'last_name' => 'required|min:3',
-			'email' => 'required|email|unique:users,email',
-			'password' => 'required|min:4',
-			'confirm-password' => 'required|same:password',
-		];
+        $user = Sentinel::registerAndActivate([
+            'email'      => $formData['email'],
+            'password'   => $formData['password'],
+            'first_name' => $formData['first_name'],
+            'last_name'  => $formData['last_name'],
+            'username'   => $formData['username'],
+            'isAdmin'    => $formData['isAdmin'],
+            'slug'       => $formData['slug'],
+            'activated'  => 1,
+        ]);
 
-		$validation = Validator::make($formData, $rules);
+        if (isset($formData['roles'])) {
+            foreach ($formData['roles'] as $role => $id) {
+                $role = Sentinel::findRoleByName($role);
+                $role->users()->attach($user);
+            }
+        }
 
-		if($validation->fails()){
-			return Redirect::action('Admin\UserController@create')->withErrors($validation)->withInput();
-		}
+        Flash::message('User was successfully created');
 
-		$user = Sentinel::registerAndActivate([
-			'email' => $formData['email'],
-			'password' => $formData['password'],
-			'first_name' => $formData['first_name'],
-			'last_name' => $formData['last_name'],
-			'username' => $formData['username'],
-			'isAdmin' => $formData['isAdmin'],
-			'slug' => $formData['slug'],
-			'activated' => 1,
-		]);
+        return langRedirectRoute('admin.user.index');
+    }
 
-		if(isset($formData['roles'])){
-			foreach($formData['roles'] as $role => $id){
-				$role = Sentinel::findRoleByName($role);
-				$role->users()->attach($user);
-			}
-		}
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $user = Sentinel::findUserById($id);
+        $userRoles = $user->getRoles()->lists('name', 'id')->toArray();
+        if (count($userRoles) > 0) {
+            $user['roles'] = implode(', ', $userRoles);
+        }
 
-		Flash::message('User was successfully created');
+        return view('backend.users.show', compact('user'))->with('active', 'user');
+    }
 
-		return langRedirectRoute('admin.user.index');
-	}
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //$user = Sentinel::findUserById($id);
+        $user = User::find($id);
+        //$user->isAdmin = $request->isAdmin;
+        $userInfo = $user->userInfo;
+        //    dd($user);
+        $userRoles = $user->getRoles()->lists('name', 'id')->toArray();
+        $roles = Role::lists('name', 'id');
 
-	/**
-	 * Display the specified resource.
-	 * @param int $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$user = Sentinel::findUserById($id);
-		$userRoles = $user->getRoles()->lists('name', 'id')->toArray();
-		if(count($userRoles) > 0){
-			$user['roles'] = implode(', ', $userRoles);
-		}
+        return view('backend.user.edit', compact('user', 'roles', 'userRoles', 'userInfo'))->with('active', 'user');
+    }
 
-		return view('backend.users.show', compact('user'))->with('active', 'user');
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::find($id);
+            $user->update(Input::all());
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * @param int $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//$user = Sentinel::findUserById($id);
-		$user = User::find($id);
-		//$user->isAdmin = $request->isAdmin;
-		$userInfo = $user->userInfo;
-		//    dd($user);
-		$userRoles = $user->getRoles()->lists('name', 'id')->toArray();
-		$roles = Role::lists('name', 'id');
+            $user->userInfo->update(Input::get('userInfo'));
+            if ($request->hasFile('userInfo')) {
+                $dest = 'uploads/users/'.$user->username.'/photos/';
+                File::delete(public_path().$user->userInfo->photo);
+                $name = str_random(11).'_'.$request->file('userInfo')['photo']->getClientOriginalName();
+                $request->file('userInfo')['photo']->move($dest, $name);
 
-		return view('backend.user.edit', compact('user', 'roles', 'userRoles', 'userInfo'))->with('active', 'user');
-	}
+                $user->userInfo->where('user_id', $user->id)->update(['photo' => '/'.$dest.$name]);
+            }
+            $oldRoles = $user->getRoles()->lists('name', 'id')->toArray();
 
-	/**
-	 * Update the specified resource in storage.
-	 * @param int $id
-	 * @return Response
-	 */
-	public function update(Request $request, $id)
-	{
-		try{
-			$user = User::find($id);
-			$user->update(Input::all());
+            foreach ($oldRoles as $id => $role) {
+                $roleModel = Sentinel::findRoleByName($role);
+                $roleModel->users()->detach($user);
+            }
 
-			$user->userInfo->update(Input::get('userInfo'));
-			if($request->hasFile('userInfo')){
-				$dest = 'uploads/users/' . $user->username . "/photos/";
-				File::delete(public_path() . $user->userInfo->photo);
-				$name = str_random(11) . "_" . $request->file('userInfo')['photo']->getClientOriginalName();
-				$request->file('userInfo')['photo']->move($dest, $name);
+            if (Input::get('roles')) {
+                foreach (Input::get('roles') as $role => $id) {
+                    $role = Sentinel::findRoleByName($role);
+                    $role->users()->attach($user);
+                }
+            }
+            Flash::message('User was successfully updated');
 
-				$user->userInfo->where('user_id', $user->id)->update(['photo' => '/' . $dest . $name]);
-			}
-			$oldRoles = $user->getRoles()->lists('name', 'id')->toArray();
+            return langRedirectRoute('admin.user.index');
+        } catch (ValidationException $e) {
+            return langRedirectRoute('admin.user.edit')->withInput()->withErrors($e->getErrors());
+        }
+    }
 
-			foreach($oldRoles as $id => $role){
-				$roleModel = Sentinel::findRoleByName($role);
-				$roleModel->users()->detach($user);
-			}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $user = Sentinel::findById($id);
+        $user->delete();
 
-			if(Input::get('roles')){
-				foreach(Input::get('roles') as $role => $id){
-					$role = Sentinel::findRoleByName($role);
-					$role->users()->attach($user);
-				}
-			}
-			Flash::message('User was successfully updated');
+        Flash::message('User was successfully deleted');
 
-			return langRedirectRoute('admin.user.index');
-		}catch(ValidationException $e){
-			return langRedirectRoute('admin.user.edit')->withInput()->withErrors($e->getErrors());
-		}
-	}
+        return langRedirectRoute('admin.user.index');
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * @param int $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$user = Sentinel::findById($id);
-		$user->delete();
+    public function confirmDestroy($id)
+    {
+        $user = Sentinel::findById($id);
 
-		Flash::message('User was successfully deleted');
-
-		return langRedirectRoute('admin.user.index');
-	}
-
-	public
-	function confirmDestroy($id)
-	{
-		$user = Sentinel::findById($id);
-
-		return view('backend.user.confirm-destroy', compact('user'))->with('active', 'user');
-	}
+        return view('backend.user.confirm-destroy', compact('user'))->with('active', 'user');
+    }
 }

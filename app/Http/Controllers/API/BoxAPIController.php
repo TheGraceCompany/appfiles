@@ -1,25 +1,27 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateBoxAPIRequest;
 use App\Http\Requests\API\UpdateBoxAPIRequest;
 use App\Models\Box;
 use App\Repositories\BoxRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class BoxController
- * @package App\Http\Controllers\API
+ * Class BoxController.
  */
-
 class BoxAPIController extends AppBaseController
 {
-    /** @var  BoxRepository */
+    /** @var BoxRepository */
     private $boxRepository;
 
     public function __construct(BoxRepository $boxRepo)
@@ -29,6 +31,7 @@ class BoxAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +73,7 @@ class BoxAPIController extends AppBaseController
 
     /**
      * @param CreateBoxAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +121,7 @@ class BoxAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +171,9 @@ class BoxAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                 $id
      * @param UpdateBoxAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +235,7 @@ class BoxAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

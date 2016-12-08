@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 if (!function_exists('gratavarUrl')) {
     /**
      * Gravatar URL from Email address.
@@ -65,7 +69,7 @@ function langURL($url = null)
  *
  * @return mixed
  */
-function langRoute($route, $parameters = array())
+function langRoute($route, $parameters = [])
 {
     return URL::route(getLang().'.'.$route, $parameters);
 }
@@ -89,7 +93,3 @@ function FlashAlert($title = null, $message = null)
 
     return $flash->info($title, $message);
 }
-
-
-
-

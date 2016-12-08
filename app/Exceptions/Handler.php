@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Exceptions;
 
 use Exception;
@@ -16,7 +21,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         HttpException::class,
-        ModelNotFoundException::class
+        ModelNotFoundException::class,
     ];
 
     /**
@@ -26,6 +31,7 @@ class Handler extends ExceptionHandler
      *
      * @param \Exception $e
      */
+
     /**
      * @param Exception $e
      */
@@ -40,7 +46,8 @@ class Handler extends ExceptionHandler
     /**
      * Create a Symfony response for the given exception.
      *
-     * @param  \Exception $e
+     * @param \Exception $e
+     *
      * @return mixed
      */
     public function convertExceptionToResponse(Exception $e)
@@ -62,8 +69,9 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request    $request
-     * @param  \Exception                  $e
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception               $e
+     *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)

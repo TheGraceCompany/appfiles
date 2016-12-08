@@ -1,15 +1,19 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
-use View;
-use Input;
-use Flash;
-use App\Services\Pagination;
+use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Project\ProjectInterface;
-use App\Exceptions\Validation\ValidationException;
 use App\Repositories\Project\ProjectRepository as Project;
+use App\Services\Pagination;
+use Flash;
+use Input;
+use View;
 
 /**
  * Class ProjectController.
@@ -35,7 +39,7 @@ class ProjectController extends Controller
     public function index()
     {
         $pagiData = $this->project->paginate(Input::get('page', 1), $this->perPage, true);
-        $projects =  Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+        $projects = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
 
         return view('backend.project.index', compact('projects'));
     }

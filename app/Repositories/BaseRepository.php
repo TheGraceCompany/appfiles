@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories;
 
 use Exception;
@@ -60,9 +64,9 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
                         $model->$key()->sync(array_values($new_values));
                         break;
                     case 'Illuminate\Database\Eloquent\Relations\BelongsTo':
-                        $model_key         = $model->$key()->getForeignKey();
-                        $new_value         = array_get($attributes, $key, null);
-                        $new_value         = '' == $new_value ? null : $new_value;
+                        $model_key = $model->$key()->getForeignKey();
+                        $new_value = array_get($attributes, $key, null);
+                        $new_value = '' == $new_value ? null : $new_value;
                         $model->$model_key = $new_value;
                         break;
                     case 'Illuminate\Database\Eloquent\Relations\HasOne':
@@ -88,7 +92,7 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
                         if (count($new_values) > 0) {
                             $related = get_class($model->$key()->getRelated());
                             foreach ($new_values as $val) {
-                                $rel             = $related::find($val);
+                                $rel = $related::find($val);
                                 $rel->$model_key = $model->id;
                                 $rel->save();
                             }

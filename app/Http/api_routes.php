@@ -1,12 +1,7 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where all API routes are defined.
-|
+ * @author Phillip Madsen
  */
 
 Route::get('dealers', 'DealerAPIController@index');

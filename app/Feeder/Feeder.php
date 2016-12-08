@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Feeder;
 
 /**
@@ -12,11 +16,11 @@ class Feeder
     /**
      * @var array
      */
-    protected $settings = array(
-        'title' => 'Grace ',
+    protected $settings = [
+        'title'       => 'Grace ',
         'description' => ' ',
-        'link' => 'link',
-    );
+        'link'        => 'link',
+    ];
 
     /**
      * @param $entries

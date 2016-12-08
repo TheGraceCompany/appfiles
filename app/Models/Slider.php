@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +18,11 @@ class Slider extends Model
     public $table = 'sliders';
 
     /**
-      * @method images
-      * @public
-      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-      */
+     * @method images
+     * @public
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
     public function images()
     {
         return $this->morphMany('App\Models\Photo', 'relationship', 'type');

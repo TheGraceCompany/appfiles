@@ -1,14 +1,18 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Services;
 
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class Pagination
 {
     /**
-     * Paginator
+     * Paginator.
      *
      * @param $data
      * @param $total

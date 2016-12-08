@@ -1,13 +1,17 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
+use Flash;
+use Input;
 use Redirect;
 use View;
-use Input;
-use Flash;
-use App\Models\Setting;
 
 /**
  * Class SettingController.
@@ -24,12 +28,12 @@ class SettingController extends Controller
         $setting = json_decode($jsonData, true);
 
         if ($setting === null) {
-            $setting = array(
-                'site_title' => null,
-                'ga_code' => null,
-                'meta_keywords' => null,
+            $setting = [
+                'site_title'       => null,
+                'ga_code'          => null,
+                'meta_keywords'    => null,
                 'meta_description' => null,
-            );
+            ];
         }
 
         return view('backend.setting.setting', compact('setting'))->with('active', 'settings');
@@ -43,7 +47,7 @@ class SettingController extends Controller
         unset($formData['_token']);
 
         $json = json_encode($formData);
-        $setting->fill(array('settings' => $json, 'lang' => getLang()))->save();
+        $setting->fill(['settings' => $json, 'lang' => getLang()])->save();
 
         Flash::message('Settings was successfully updated');
 

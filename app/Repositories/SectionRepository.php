@@ -1,9 +1,12 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Repositories;
 
 use App\Models\Section;
-use App\Repositories\BaseRepository;
 
 class SectionRepository extends BaseRepository
 {
@@ -14,11 +17,11 @@ class SectionRepository extends BaseRepository
         'name',
         'meta_description',
         'slug',
-        'lang'
+        'lang',
     ];
 
     /**
-     * Configure the Model
+     * Configure the Model.
      **/
     public function model()
     {

@@ -1,25 +1,27 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\AppBaseController;
+use App\Http\Criteria\LimitOffsetCriteria;
 use App\Http\Requests\API\CreateDealerAPIRequest;
 use App\Http\Requests\API\UpdateDealerAPIRequest;
 use App\Models\Dealer;
 use App\Repositories\DealerRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
-use App\Http\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class DealerController
- * @package App\Http\Controllers\API
+ * Class DealerController.
  */
-
 class DealerAPIController extends AppBaseController
 {
-    /** @var  DealerRepository */
+    /** @var DealerRepository */
     private $dealerRepository;
 
     public function __construct(DealerRepository $dealerRepo)
@@ -29,6 +31,7 @@ class DealerAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -70,6 +73,7 @@ class DealerAPIController extends AppBaseController
 
     /**
      * @param CreateDealerAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Post(
@@ -117,6 +121,7 @@ class DealerAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -166,8 +171,9 @@ class DealerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param int                    $id
      * @param UpdateDealerAPIRequest $request
+     *
      * @return Response
      *
      * @SWG\Put(
@@ -229,6 +235,7 @@ class DealerAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Delete(

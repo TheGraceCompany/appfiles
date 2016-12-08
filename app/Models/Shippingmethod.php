@@ -1,4 +1,10 @@
-<?php  namespace App\Models;
+<?php
+
+/*
+ * @author Phillip Madsen
+ */
+
+namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,9 +15,7 @@ class Shippingmethod extends Model
 
     public $table = 'shippingmethods';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'access_key',
@@ -31,7 +35,7 @@ class Shippingmethod extends Model
         'measurement',
         'box_id',
         'product_id',
-        'location_id'
+        'location_id',
     ];
 
     /**
@@ -40,28 +44,28 @@ class Shippingmethod extends Model
      * @var array
      */
     protected $casts = [
-        'access_key' => 'string',
-        'ups_username' => 'string',
-        'ups_password' => 'string',
-        'method_title' => 'string',
-        'account_number' => 'string',
-        'delivery_confirmation' => 'string',
-        'dc_per_package_price' => 'string',
-        'pickup_type' => 'string',
-        'price_adjustment_flat' => 'string',
+        'access_key'               => 'string',
+        'ups_username'             => 'string',
+        'ups_password'             => 'string',
+        'method_title'             => 'string',
+        'account_number'           => 'string',
+        'delivery_confirmation'    => 'string',
+        'dc_per_package_price'     => 'string',
+        'pickup_type'              => 'string',
+        'price_adjustment_flat'    => 'string',
         'price_adjustment_percent' => 'string',
-        'flag_residential' => 'boolean',
-        'add_insurance' => 'boolean',
-        'negotiated_rates' => 'boolean',
-        'weight' => 'integer',
-        'measurement' => 'integer',
-        'box_id' => 'integer',
-        'product_id' => 'integer',
-        'location_id' => 'integer'
+        'flag_residential'         => 'boolean',
+        'add_insurance'            => 'boolean',
+        'negotiated_rates'         => 'boolean',
+        'weight'                   => 'integer',
+        'measurement'              => 'integer',
+        'box_id'                   => 'integer',
+        'product_id'               => 'integer',
+        'location_id'              => 'integer',
     ];
 
     /**
-     * Validation rules
+     * Validation rules.
      *
      * @var array
      */

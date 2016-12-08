@@ -1,4 +1,10 @@
-<?php namespace App\Ecommerce\Billing;
+<?php
+
+/*
+ * @author Phillip Madsen
+ */
+
+namespace App\Ecommerce\Billing;
 
 interface BillingInterface
 {

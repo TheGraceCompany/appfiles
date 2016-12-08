@@ -1,13 +1,15 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 use App\Models\Userinfo;
 
 class CreateUserinfoRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *

@@ -1,11 +1,15 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Models;
 
-use URL;
-use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Page\PageRepository;
 use App\Repositories\PhotoGallery\PhotoGalleryRepository;
+use Illuminate\Database\Eloquent\Model;
+use URL;
 
 /**
  * Class Menu.
@@ -18,10 +22,11 @@ class Menu extends Model
     protected $fillable = ['title', 'url', 'order', 'type', 'selected'];
 
     /**
-      * @method getMaxOrder
-      * @public
-      * @return {any}
-      */
+     * @method getMaxOrder
+     * @public
+     *
+     * @return {any}
+     */
     public function getMaxOrder()
     {
         $menu = $this->where('lang', getLang())->orderBy('order', 'desc')->first();
@@ -32,13 +37,15 @@ class Menu extends Model
         return 0;
     }
 
-	/**
-	 * @method generateMenu
-	 * @public
-	 * @param {any} $menu
-	 * @param {any} [$parentId = 0]
-	 * @return null|string
-	 */
+    /**
+     * @method generateMenu
+     * @public
+     *
+     * @param {any} $menu
+     * @param {any} [$parentId = 0]
+     *
+     * @return null|string
+     */
     public function generateMenu($menu, $parentId = 0)
     {
         $result = null;
@@ -57,44 +64,47 @@ class Menu extends Model
                                             <a title='Edit Menu' class='edit-menu' href='".langRoute('admin.menu.edit', $item->id)."'><img alt='Edit' src='".url('/').'/assets/images/edit.png'."'></a>
                                             <a class='delete-menu' href='".URL::route('admin.menu.delete', $item->id)."'><img alt='Delete' src='".url('/').'/assets/images/cross.png'."'></a><input type='hidden' value='1' name='menu_id'>
                                             </div>
-                                            </div>".$this->generateMenu($menu, $item->id)."</li>";
-                }
+                                            </div>".$this->generateMenu($menu, $item->id).'</li>';
             }
-
+        }
 
         return $result ? "\n<ol class=\"dd-list\">\n$result</ol>\n" : null;
     }
 
     /**
-      * @method getMenuHTML
-      * @public
-      * @param {any} $items
-      * @return {any}
-      */
+     * @method getMenuHTML
+     * @public
+     *
+     * @param {any} $items
+     *
+     * @return {any}
+     */
     public function getMenuHTML($items)
     {
         return $this->generateMenu($items);
     }
 
     /**
-      * @method parseJsonArray
-      * @public
-      * @param {any} $jsonArray
-      * @param {any} [$parentID = 0]
-      * @return {any}
-      */
+     * @method parseJsonArray
+     * @public
+     *
+     * @param {any} $jsonArray
+     * @param {any} [$parentID = 0]
+     *
+     * @return {any}
+     */
     public function parseJsonArray($jsonArray, $parentID = 0)
     {
-        $return = array();
+        $return = [];
 
         foreach ($jsonArray as $subArray) {
-            $returnSubArray = array();
+            $returnSubArray = [];
 
             if (isset($subArray['children'])) {
                 $returnSubArray = $this->parseJsonArray($subArray['children'], $subArray['id']);
             }
 
-            $return[] = array('id' => $subArray['id'], 'parentID' => $parentID);
+            $return[] = ['id' => $subArray['id'], 'parentID' => $parentID];
             $return = array_merge($return, $returnSubArray);
         }
 
@@ -102,10 +112,11 @@ class Menu extends Model
     }
 
     /**
-      * @method changeParentById
-      * @public
-      * @param {any} $data
-      */
+     * @method changeParentById
+     * @public
+     *
+     * @param {any} $data
+     */
     public function changeParentById($data)
     {
         foreach ($data as $k => $v) {
@@ -117,11 +128,13 @@ class Menu extends Model
     }
 
     /**
-      * @method hasChildItems
-      * @public
-      * @param {any} $id
-      * @return {any}
-      */
+     * @method hasChildItems
+     * @public
+     *
+     * @param {any} $id
+     *
+     * @return {any}
+     */
     public function hasChildItems($id)
     {
         $count = $this->where('parent_id', $id)->where('lang', getLang())->where('is_published', 1)->get()->count();
@@ -133,13 +146,14 @@ class Menu extends Model
     }
 
     /**
-      * @method getMenuOptions
-      * @public
-      * @return {any}
-      */
+     * @method getMenuOptions
+     * @public
+     *
+     * @return {any}
+     */
     public function getMenuOptions()
     {
-        $opts = array();
+        $opts = [];
         $page = new PageRepository(new Page());
         $pageOpts = $page->lists();
 
@@ -154,74 +168,78 @@ class Menu extends Model
             $opts['PhotoGallery']['App\Models\PhotoGallery-'.$k] = $v;
         }
 
-        $menuOptions = array(
-            'General' => array(
-            'home' => 'Home',
-            'automation' => 'Automation',
-            'blog' => 'Blog',
-            'contact' => 'Contact',
-            'events' => 'Events',
-            'faq' => 'Faq',
-            'hand-quilting' => 'Hand Quilting',
-            'machine-frames' => 'Machine Frames',
-            'news' => 'News',
-            'project' => 'Project',
-            'add-ons' => 'Add-Ons',
-            'community' => 'Community',
-            'qnique' => 'Qnique',
+        $menuOptions = [
+            'General' => [
+            'home'            => 'Home',
+            'automation'      => 'Automation',
+            'blog'            => 'Blog',
+            'contact'         => 'Contact',
+            'events'          => 'Events',
+            'faq'             => 'Faq',
+            'hand-quilting'   => 'Hand Quilting',
+            'machine-frames'  => 'Machine Frames',
+            'news'            => 'News',
+            'project'         => 'Project',
+            'add-ons'         => 'Add-Ons',
+            'community'       => 'Community',
+            'qnique'          => 'Qnique',
             'sewing-machines' => 'Sewing Machines',
-            'shop' => 'Shop',
-            'truecut' => 'True Cut',
-            'videos' => 'Videos', ),
-            'Page' => (isset($opts['Page']) ? $opts['Page'] : array()),
-            'Photo Gallery' => (isset($opts['PhotoGallery']) ? $opts['PhotoGallery'] : array()), );
+            'shop'            => 'Shop',
+            'truecut'         => 'True Cut',
+            'videos'          => 'Videos', ],
+            'Page'          => (isset($opts['Page']) ? $opts['Page'] : []),
+            'Photo Gallery' => (isset($opts['PhotoGallery']) ? $opts['PhotoGallery'] : []), ];
 
         return $menuOptions;
     }
 
        /**
-         * @method getUrl
-         * @public
-         * @param {any} $option
-         * @return {any}
-         */
+        * @method getUrl
+        * @public
+        *
+        * @param {any} $option
+        *
+        * @return {any}
+        */
        public function getUrl($option)
-    {
-        $url = '';
+       {
+           $url = '';
 
-        switch ($option) {
+           switch ($option) {
 
-            case 'home':                    $url = "/";                                     break;
-            case 'add-ons':                    $url = "/add-ons";                                     break;
-            case 'automation':              $url = "/automation/qct";                   break;
-            case 'blog':                    $url = '/community/blog';                   break;
-            case 'contact':                     $url = '/contact';                              break;
-            case 'events':                      $url = "/community/events";                 break;
-            case 'faq':                         $url = '/community/faq';                    break;
-            case 'hand-quilting':       $url = "/hand-quilting";                    break;
-            case 'machine-frames':  $url = "/machine-frames";                   break;
-            case 'news':                        $url = '/community/news';                   break;
-            case 'project':                     $url = '/community/project';                break;
-            case 'qnique':                      $url = "/sewing-machines/qnique";       break;
-            case 'community':               $url = "/community";                        break;
-            case 'sewing-machines':         $url = "/sewing-machines/qnique";       break;
-            case 'shop':                        $url = "/shop";                                 break;
-            case 'truecut':                     $url = "/truecut";                          break;
-            case 'videos':                      $url = "/community/videos";                 break;
+            case 'home':                    $url = '/'; break;
+            case 'add-ons':                    $url = '/add-ons'; break;
+            case 'automation':              $url = '/automation/qct'; break;
+            case 'blog':                    $url = '/community/blog'; break;
+            case 'contact':                     $url = '/contact'; break;
+            case 'events':                      $url = '/community/events'; break;
+            case 'faq':                         $url = '/community/faq'; break;
+            case 'hand-quilting':       $url = '/hand-quilting'; break;
+            case 'machine-frames':  $url = '/machine-frames'; break;
+            case 'news':                        $url = '/community/news'; break;
+            case 'project':                     $url = '/community/project'; break;
+            case 'qnique':                      $url = '/sewing-machines/qnique'; break;
+            case 'community':               $url = '/community'; break;
+            case 'sewing-machines':         $url = '/sewing-machines/qnique'; break;
+            case 'shop':                        $url = '/shop'; break;
+            case 'truecut':                     $url = '/truecut'; break;
+            case 'videos':                      $url = '/community/videos'; break;
 
             default: $url = $this->getModuleUrl($option); break; }
 
-        $url = '/'.getLang().'/'.ltrim($url, '/');
+           $url = '/'.getLang().'/'.ltrim($url, '/');
 
-        return $url;
-    }
+           return $url;
+       }
 
     /**
-      * @method getModuleUrl
-      * @public
-      * @param {any} $option
-      * @return {any}
-      */
+     * @method getModuleUrl
+     * @public
+     *
+     * @param {any} $option
+     *
+     * @return {any}
+     */
     public function getModuleUrl($option)
     {
         $pieces = explode('-', $option);
@@ -234,13 +252,15 @@ class Menu extends Model
     }
 
     /**
-      * @method generateFrontMenu
-      * @public
-      * @param {any} $menu
-      * @param {any} [$parentId = 0]
-      * @param {any} [$starter = false]
-      * @return {any}
-      */
+     * @method generateFrontMenu
+     * @public
+     *
+     * @param {any} $menu
+     * @param {any} [$parentId = 0]
+     * @param {any} [$starter = false]
+     *
+     * @return {any}
+     */
     public function generateFrontMenu($menu, $parentId = 0, $starter = false)
     {
         $result = null;
@@ -259,11 +279,13 @@ class Menu extends Model
     }
 
     /**
-      * @method getFrontMenuHTML
-      * @public
-      * @param {any} $items
-      * @return {any}
-      */
+     * @method getFrontMenuHTML
+     * @public
+     *
+     * @param {any} $items
+     *
+     * @return {any}
+     */
     public function getFrontMenuHTML($items)
     {
         return $this->generateFrontMenu($items, 0, true);

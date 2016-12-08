@@ -1,9 +1,13 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Providers;
 
-use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -37,12 +41,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         $router->group(['namespace' => $this->namespace], function ($router) {
             require app_path('Http/routes.php');
-			require app_path('Http/dev_routes.php');
-			require app_path('Http/live_custom_routes.php');
-			require app_path('Http/new_routes.php');
-			require app_path('Http/shop_routes.php');
+            require app_path('Http/dev_routes.php');
+            require app_path('Http/live_custom_routes.php');
+            require app_path('Http/new_routes.php');
+            require app_path('Http/shop_routes.php');
 //			require app_path('Http/account_routes.php');
-			require app_path('Http/api_routes.php');
+            require app_path('Http/api_routes.php');
         });
     }
 }

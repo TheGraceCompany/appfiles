@@ -1,8 +1,13 @@
 <?php
-Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => ['localization', 'before']], function () {
-   Route::group([ 'middleware' => 'SentinelUser' ], function () {
 
-        /**
+/*
+ * @author Phillip Madsen
+ */
+
+Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => ['localization', 'before']], function () {
+    Route::group(['middleware' => 'SentinelUser'], function () {
+
+        /*
          * Users Routes
          */
         Route::get('/dashboard', 'UserController@dashboard');
@@ -13,17 +18,14 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         Route::post('/user/create', 'UserController@store');
         Route::post('/user/{id}/edit', 'UserController@edit');
         Route::post('/user/edit', 'UserController@edit');
-   });
+    });
 });
 
-
 Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => ['localization', 'before']], function () {
-
     Route::group([
         'prefix'     => '/admin',
-        'middleware' => ['before', 'sentinel.auth', 'sentinel.permission']
+        'middleware' => ['before', 'sentinel.auth', 'sentinel.permission'],
     ], function () {
-
         Route::get('admin/dealers', ['as'=> 'admin.dealers.index', 'uses' => 'DealerController@index']);
         Route::post('admin/dealers', ['as'=> 'admin.dealers.store', 'uses' => 'DealerController@store']);
         Route::get('admin/dealers/create', ['as'=> 'admin.dealers.create', 'uses' => 'DealerController@create']);
@@ -33,7 +35,6 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         Route::get('admin/dealers/{dealers}', ['as'=> 'admin.dealers.show', 'uses' => 'DealerController@show']);
         Route::get('admin/dealers/{dealers}/edit', ['as'=> 'admin.dealers.edit', 'uses' => 'DealerController@edit']);
 
-
         Route::get('admin/locations', ['as'=> 'admin.locations.index', 'uses' => 'LocationController@index']);
         Route::post('admin/locations', ['as'=> 'admin.locations.store', 'uses' => 'LocationController@store']);
         Route::get('admin/locations/create', ['as'=> 'admin.locations.create', 'uses' => 'LocationController@create']);
@@ -42,7 +43,6 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         Route::delete('admin/locations/{locations}', ['as'=> 'admin.locations.destroy', 'uses' => 'LocationController@destroy']);
         Route::get('admin/locations/{locations}', ['as'=> 'admin.locations.show', 'uses' => 'LocationController@show']);
         Route::get('admin/locations/{locations}/edit', ['as'=> 'admin.locations.edit', 'uses' => 'LocationController@edit']);
-
 
         Route::get('admin/alerts', ['as'=> 'admin.alerts.index', 'uses' => 'AlertController@index']);
         Route::post('admin/alerts', ['as'=> 'admin.alerts.store', 'uses' => 'AlertController@store']);
@@ -61,19 +61,17 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         Route::delete('admin/keys/{keys}', ['as'=> 'admin.keys.destroy', 'uses' => 'KeyController@destroy']);
         Route::get('admin/keys/{keys}', ['as'=> 'admin.keys.show', 'uses' => 'KeyController@show']);
         Route::get('admin/keys/{keys}/edit', ['as'=> 'admin.keys.edit', 'uses' => 'KeyController@edit']);
-
     });
 });
 Route::post('admin/userlocations/{user}', ['as'=> 'admin.userlocations.store', 'uses' => 'UserLocationController@store']);
-Route::get('ajaxSubCategory/{categoryId}','SubCategoriesController@ajaxGetSubCategories'); //retrieving sub-categories when clicking a category on the modal
-Route::get('ajaxProducts/{subCategoryId}','ProductsController@ajaxGetProducts'); //retrieving products by search in the content body
-Route::get('ajaxSearchProducts/{searchKeyWord}','ProductsController@ajaxSearchProductsKey');
+Route::get('ajaxSubCategory/{categoryId}', 'SubCategoriesController@ajaxGetSubCategories'); //retrieving sub-categories when clicking a category on the modal
+Route::get('ajaxProducts/{subCategoryId}', 'ProductsController@ajaxGetProducts'); //retrieving products by search in the content body
+Route::get('ajaxSearchProducts/{searchKeyWord}', 'ProductsController@ajaxSearchProductsKey');
 //Route::get('ajaxScrollProducts/{subCategoryId}/{lastProductId}','ProductsController@ajaxScrollProducts');
 //Route::group(['prefix' => 'all-products'], function () {
 //    Route::get('{catgoryId}',['as' => 'products.all', 'uses' => 'RetrieveProductController@getProducts']);
 //    Route::get('{productId}/details',['as' => 'product.details', 'uses' => 'RetrieveProductController@getDetails']);
 //});
-
 
 // Route::get('/', function()
 // {
@@ -89,7 +87,6 @@ Route::get('ajaxSearchProducts/{searchKeyWord}','ProductsController@ajaxSearchPr
 
 //     return $img->response();
 // });
-
 
 // Route::get('resize-image/{pathkey}/{filename}/{w?}/{h?}', function($pathkey, $filename, $w=100, $h=100){
 
@@ -107,8 +104,6 @@ Route::get('ajaxSearchProducts/{searchKeyWord}','ProductsController@ajaxSearchPr
 //     return Response::make($cacheimage, 200, array('Content-Type' => 'image/jpeg'));
 // });
 
-
-
 //Route::get('/Gallery/thumb/{path}', function($path)
 //{
 //    $img_path = 'public/Gallery/'.$path;
@@ -124,8 +119,7 @@ Route::get('ajaxSearchProducts/{searchKeyWord}','ProductsController@ajaxSearchPr
 //    return $response;
 //});
 
-
 Route::get('imagecache/{template}/{filename}', [
     'uses' => 'ImageCacheController@getResponse',
-    'as'   => 'imagecache'
+    'as'   => 'imagecache',
 ])->where('filename', '[ \w\\.\\/\\-\\@]+');

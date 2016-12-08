@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Phillip Madsen
+ */
+
 namespace App\Http\Controllers;
 
 use App\Repositories\Project\ProjectInterface;
@@ -43,7 +47,7 @@ class ProjectController extends Controller
         $project = $this->project->getBySlug($slug);
 
         if ($project == null) {
-            return Response::view('errors.missing', array(), 404);
+            return Response::view('errors.missing', [], 404);
         }
 
         return view('frontend.project.show', compact('project'));
