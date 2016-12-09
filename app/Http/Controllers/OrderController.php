@@ -38,15 +38,18 @@ class OrderController extends Controller
 
         return view('frontend.account.showOrder', compact('orderDetails', 'order', 'options'));
     }
+
     public function history()
     {
         //$orderDetails = OrderProduct::where('order_id', $id)->get();
-        $orders = Order::where('user_id', Sentinel::getUser()->id)->get();     
-        foreach($orders as $key=>$item):
-        $orders[$key]['product']=OrderProduct::where('order_id', $item->id)->get();
+        $orders = Order::where('user_id', Sentinel::getUser()->id)->get();
+        foreach ($orders as $key=> $item):
+        $orders[$key]['product'] = OrderProduct::where('order_id', $item->id)->get();
         endforeach;
+
         return view('frontend.account.order-history', compact('orders'));
     }
+
     public function update(Request $request, $id)
     {
         Order::find($id)->update(['status' => $request->status]);
