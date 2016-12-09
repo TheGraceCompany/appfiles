@@ -143,12 +143,10 @@ class ProductController extends Controller
         $destinationLoopPath = public_path().$this->loopDir;
         $destinationShopLoopPath = public_path().$this->shopLoopDir;
 
-	    File::exists($destinationPath) or File::makeDirectory($destinationPath);
-	    File::exists($destinationThumbPath) or File::makeDirectory($destinationThumbPath);
-	    File::exists($destinationLoopPath) or File::makeDirectory($destinationLoopPath);
-	    File::exists($destinationShopLoopPath) or File::makeDirectory($destinationShopLoopPath);
-
-
+        File::exists($destinationPath) or File::makeDirectory($destinationPath);
+        File::exists($destinationThumbPath) or File::makeDirectory($destinationThumbPath);
+        File::exists($destinationLoopPath) or File::makeDirectory($destinationLoopPath);
+        File::exists($destinationShopLoopPath) or File::makeDirectory($destinationShopLoopPath);
 
         $name = $request->file('thumbnail')->getClientOriginalName();
         $from = $request->file('thumbnail');
@@ -162,9 +160,9 @@ class ProductController extends Controller
         Image::make($from)->fit($this->shopLoopWidth, $this->shopLoopHeight, function ($constraint) {
             $constraint->upsize();
         })->save($destinationShopLoopPath.$name);
-	    Image::make($from)->resize($this->shopLoopWidth, $this->shopLoopHeight, function ($constraint) {
-		    $constraint->upsize();
-	    })->save($destinationShopLoopPath. "/fit/" .$name);
+        Image::make($from)->resize($this->shopLoopWidth, $this->shopLoopHeight, function ($constraint) {
+            $constraint->upsize();
+        })->save($destinationShopLoopPath.'/fit/'.$name);
 
         $request->file('thumbnail')->move($destinationPath, $name);
 

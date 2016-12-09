@@ -2,50 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\User;
+use App\Models\UserInfo;
+use Auth;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
+use Ecommerce\helperFunctions;
 use Illuminate\Http\Request;
 use Lang;
 use Mail;
 use Redirect;
 use Reminder;
 use Sentinel;
+use Session;
 use URL;
 use Validator;
 use View;
-use Session;
-use \Ecommerce\helperFunctions;
-use App\Http\Controllers\CartController;
-use App\Models\User;
-use App\Models\UserInfo;
-use App\Models\Cart;
-use Auth;
 
-class AuthController extends Controller {
-
+class AuthController extends Controller
+{
     /**
      * Account sign in.
      *
      * @return View
      */
-    public function getSignin(Request $request) {
+    public function getSignin(Request $request)
+    {
         $user = Auth::user();
-        $userinfo = NULL;
+        $userinfo = null;
         // Is the user logged in?
         if (Sentinel::check()) {
             return Redirect::route('dashboard');
         }
         $redirect = $request->redirect;
         helperFunctions::getCartInfo($cart, $total);
+
         return view('frontend/auth/signin-signup', compact('page', 'cart', 'total', 'user', 'userinfo', 'redirect'));
     }
 
     /**
      * Account sign in form processing.
+     *
      * @param Request $request
+     *
      * @return Redirect
      */
-    public function postSignin(Request $request) {
+    public function postSignin(Request $request)
+    {
         $cart_old = Session::get('cart');
 
         try {
@@ -58,18 +62,18 @@ class AuthController extends Controller {
                     // dd(Session::all());
                     foreach ($cart_old as $crt):
                        // dd($crt);
-                        $cart =new CartController;
-                        $request->qty=$crt['quantity'];
-                        $cart->add($crt['product_id'],$request);
-                        
+                        $cart = new CartController();
+                    $request->qty = $crt['quantity'];
+                    $cart->add($crt['product_id'], $request);
+
                     endforeach;
                 }
 
                 if ($request->redirect) {
-                    return Redirect::route("checkout");
+                    return Redirect::route('checkout');
                 } else {
                     // Redirect to the dashboard page
-                    return Redirect::route("dashboard")->with('success', Lang::get('auth/message.signin.success'));
+                    return Redirect::route('dashboard')->with('success', Lang::get('auth/message.signin.success'));
                 }
             }
 
@@ -90,16 +94,17 @@ class AuthController extends Controller {
      *
      * @return Redirect
      */
-    public function postSignup(Request $request) {
+    public function postSignup(Request $request)
+    {
         // Declare the rules for the form validation
-        $rules = array(
-            'first_name' => 'required|min:3',
-            'last_name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
-            'email_confirm' => 'required|email|same:email',
-            'password' => 'required|between:3,32',
+        $rules = [
+            'first_name'       => 'required|min:3',
+            'last_name'        => 'required|min:3',
+            'email'            => 'required|email|unique:users',
+            'email_confirm'    => 'required|email|same:email',
+            'password'         => 'required|between:3,32',
             'password_confirm' => 'required|same:password',
-        );
+        ];
 
         // Create a new validator instance from our validation rules
         $validator = Validator::make($request->all(), $rules);
@@ -107,25 +112,24 @@ class AuthController extends Controller {
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
             // Ooops.. something went wrong
-            return Redirect::to(URL::previous() . '#toregister')->withInput()->withErrors($validator);
+            return Redirect::to(URL::previous().'#toregister')->withInput()->withErrors($validator);
         }
 
         try {
             // Register the user
-            $user = Sentinel::registerAndActivate(array(
+            $user = Sentinel::registerAndActivate([
                         'first_name' => $request->get('first_name'),
-                        'last_name' => $request->get('last_name'),
-                        'username' => $request->get('first_name') . " " . $request->get('last_name'),
-                        'slug' => Str::slug($request->get('first_name') . " " . $request->get('last_name'), '-'),
-                        'isAdmin' => 0,
-                        'email' => $request->get('email'),
-                        'password' => $request->get('password')
-            ));
+                        'last_name'  => $request->get('last_name'),
+                        'username'   => $request->get('first_name').' '.$request->get('last_name'),
+                        'slug'       => Str::slug($request->get('first_name').' '.$request->get('last_name'), '-'),
+                        'isAdmin'    => 0,
+                        'email'      => $request->get('email'),
+                        'password'   => $request->get('password'),
+            ]);
 
             //add user to 'User' group
             $role = Sentinel::findRoleById(2);
             $role->users()->attach($user);
-
 
             /*
               //un-comment below code incase if user have to activate manually
@@ -152,7 +156,7 @@ class AuthController extends Controller {
             Sentinel::login($user, false);
 
             // Redirect to the home page with success menu
-            return Redirect::route("account.dashboard")->with('success', Lang::get('auth/message.signup.success'));
+            return Redirect::route('account.dashboard')->with('success', Lang::get('auth/message.signup.success'));
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', Lang::get('auth/message.account_already_exists'));
         }
@@ -166,9 +170,11 @@ class AuthController extends Controller {
      *
      * @param number $userId
      * @param string $activationCode
+     *
      * @return
      */
-    public function getActivate($userId, $activationCode = null) {
+    public function getActivate($userId, $activationCode = null)
+    {
         // Is user logged in?
         if (Sentinel::check()) {
             return Redirect::route('dashboard');
@@ -184,21 +190,24 @@ class AuthController extends Controller {
         } else {
             // Activation not found or not completed.
             $error = Lang::get('auth/message.activate.error');
+
             return Redirect::route('signin')->with('error', $error);
         }
     }
 
     /**
      * Forgot password form processing page.
+     *
      * @param Request $request
      *
      * @return Redirect
      */
-    public function postForgotPassword(Request $request) {
+    public function postForgotPassword(Request $request)
+    {
         // Declare the rules for the validator
-        $rules = array(
+        $rules = [
             'email' => 'required|email',
-        );
+        ];
 
         // Create a new validator instance from our dynamic rules
         $validator = Validator::make($request->all(), $rules);
@@ -206,7 +215,7 @@ class AuthController extends Controller {
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
             // Ooops.. something went wrong
-            return Redirect::to(URL::previous() . '#toforgot')->withInput()->withErrors($validator);
+            return Redirect::to(URL::previous().'#toforgot')->withInput()->withErrors($validator);
         }
 
         try {
@@ -220,17 +229,17 @@ class AuthController extends Controller {
             if (!$activation) {
                 return Redirect::route('forgot-password')->with('error', Lang::get('auth/message.account_not_activated'));
             }
-            $reminder = Reminder::exists($user) ? : Reminder::create($user);
+            $reminder = Reminder::exists($user) ?: Reminder::create($user);
             // Data to be used on the email view
-            $data = array(
+            $data = [
                 'user' => $user,
                 //'forgotPasswordUrl' => URL::route('forgot-password-confirm', $user->getResetPasswordCode()),
                 'forgotPasswordUrl' => URL::route('forgot-password-confirm', [$user->id, $reminder->code]),
-            );
+            ];
 
             // Send the activation code through email
             Mail::send('emails.forgot-password', $data, function ($m) use ($user) {
-                $m->to($user->email, $user->first_name . ' ' . $user->last_name);
+                $m->to($user->email, $user->first_name.' '.$user->last_name);
                 $m->subject('Account Password Recovery');
             });
         } catch (UserNotFoundException $e) {
@@ -240,17 +249,19 @@ class AuthController extends Controller {
         }
 
         //  Redirect to the forgot password
-        return Redirect::to(URL::previous() . '#toforgot')->with('success', Lang::get('auth/message.forgot-password.success'));
+        return Redirect::to(URL::previous().'#toforgot')->with('success', Lang::get('auth/message.forgot-password.success'));
     }
 
     /**
      * Forgot Password Confirmation page.
      *
      * @param number $userId
-     * @param  string $passwordResetCode
+     * @param string $passwordResetCode
+     *
      * @return View
      */
-    public function getForgotPasswordConfirm($userId, $passwordResetCode = null) {
+    public function getForgotPasswordConfirm($userId, $passwordResetCode = null)
+    {
         // Find the user using the password reset code
         if (!$user = Sentinel::findById($userId)) {
             // Redirect to the forgot password page
@@ -275,16 +286,18 @@ class AuthController extends Controller {
      * Forgot Password Confirmation form processing page.
      *
      * @param Request $request
-     * @param number $userId
-     * @param  string   $passwordResetCode
+     * @param number  $userId
+     * @param string  $passwordResetCode
+     *
      * @return Redirect
      */
-    public function postForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null) {
+    public function postForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null)
+    {
         // Declare the rules for the form validation
-        $rules = array(
-            'password' => 'required|between:3,32',
-            'password_confirm' => 'required|same:password'
-        );
+        $rules = [
+            'password'         => 'required|between:3,32',
+            'password_confirm' => 'required|same:password',
+        ];
 
         // Create a new validator instance from our dynamic rules
         $validator = Validator::make($request->all(), $rules);
@@ -311,7 +324,8 @@ class AuthController extends Controller {
      *
      * @return Redirect
      */
-    public function getLogout() {
+    public function getLogout()
+    {
         // Log the user out
         Sentinel::logout();
 
@@ -319,7 +333,7 @@ class AuthController extends Controller {
         return Redirect::to('admin/signin')->with('success', 'You have successfully logged out!');
     }
 
-    /**
+    /*
      * Account sign up form processing for signup page
      *
      * @param Request $request
