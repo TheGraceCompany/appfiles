@@ -15,14 +15,7 @@ use Validator;
 use View;
 use Session;
 use \Ecommerce\helperFunctions;
-<<<<<<< HEAD
-<<<<<<< HEAD
 use App\Http\Controllers\CartController;
-=======
->>>>>>> 3ca5f53dc8a62f4d5afc4db6692f6df4569cb0f3
-=======
-use App\Http\Controllers\CartController;
->>>>>>> a89cdcfcadf0e0d3342e49c36e4bfa850e185a22
 use App\Models\User;
 use App\Models\UserInfo;
 use App\Models\Cart;
@@ -59,8 +52,6 @@ class AuthController extends Controller {
             // Try to log the user in
             if (Sentinel::authenticate($request->only(['email', 'password']), $request->get('remember-me', false))) {
                 // Session::put('cart', $cart);
-<<<<<<< HEAD
-<<<<<<< HEAD
                 //$request->qty=1;
                 //dd($request->qty);
                 if (Session::has('cart')) {
@@ -71,27 +62,6 @@ class AuthController extends Controller {
                         $request->qty=$crt['quantity'];
                         $cart->add($crt['product_id'],$request);
                         
-=======
-=======
-                //$request->qty=1;
-                //dd($request->qty);
->>>>>>> a89cdcfcadf0e0d3342e49c36e4bfa850e185a22
-                if (Session::has('cart')) {
-                    // dd(Session::all());
-                    foreach ($cart_old as $crt):
-                       // dd($crt);
-                        $cart =new CartController;
-                        $request->qty=$crt['quantity'];
-                        $cart->add($crt['product_id'],$request);
-                        
-<<<<<<< HEAD
-                        $cart->amount = $crt['quantity'];
-
-                        $cart->save();
-
->>>>>>> 3ca5f53dc8a62f4d5afc4db6692f6df4569cb0f3
-=======
->>>>>>> a89cdcfcadf0e0d3342e49c36e4bfa850e185a22
                     endforeach;
                 }
 
